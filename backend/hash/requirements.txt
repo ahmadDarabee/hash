@@ -1,0 +1,6 @@
+fastapi==0.115.6
+asyncpg==0.30.0
+pydantic==2.10.4
+password-strength==0.0.3.post2
+pydantic-settings==2.8.0
+cachetools==5.5.2

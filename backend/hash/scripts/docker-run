@@ -1,0 +1,20 @@
+#!/bin/env bash
+
+
+if [-Z $LOGHOST ]; then
+    echo "Running the docker container without logger host"
+    run-server 2>&1
+
+else :
+    echo "sending logs to $LOGHOST"
+    run-server 2>&1 \
+    |   logger \
+        -s \
+        -n $LOGHOST \
+        -d \
+        --rfc5424 \
+        --sd-id "id@1" \
+        --sd-param  instance=\"$CLIENT_NAME\" \
+        --sd-param  instance=\"$PROGRAM_NAME\" \
+        --sd-param  instance=\"$ENV\" \
+        --sd-param  instance=\"$LOCATION\" \

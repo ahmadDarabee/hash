@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    
+    environment:
+      POSTGRES_USER: hash
+      POSTGRES_PASSWORD: hash123
+      POSTGRES_DB: hash
