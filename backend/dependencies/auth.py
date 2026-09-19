@@ -2,11 +2,7 @@ import logging
 from typing import Dict
 from pydantic import BaseModel 
 
-
 logger = logging.getLogger(__name__)
-
-
-
 
 class Token (BaseModel):
     access_token: str

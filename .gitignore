@@ -1,1 +1,4 @@
 *.log
+.*
+uv.lock
+*__pycache__*
