@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-// Reactive moods. "poke" is handled separately as a Rive trigger (animation only).
+// Reactive moods. "poke" is handled separately as a squash animation (not a mood).
 export type WojakMood =
   | 'idle'
   | 'happy'

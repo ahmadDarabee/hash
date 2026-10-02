@@ -11,7 +11,8 @@ export default function AdminLayout() {
     return <Navigate to="/login" replace />
   }
 
-  const links = [
+  const links: Array<{ to: string; label: string; end?: boolean }> = [
+    { to: '/admin', label: t('admin.dashboard'), end: true },
     { to: '/admin/products', label: t('admin.products') },
     { to: '/admin/sds', label: t('admin.sds') },
     { to: '/admin/users', label: t('admin.users') },
@@ -25,6 +26,7 @@ export default function AdminLayout() {
             <NavLink
               key={link.to}
               to={link.to}
+              end={link.end}
               className={({ isActive }) =>
                 `rounded-md px-3 py-2 text-sm font-medium ${
                   isActive ? 'bg-brand-600 text-white' : 'text-gray-600 hover:bg-gray-100'

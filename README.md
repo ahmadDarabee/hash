@@ -2,7 +2,7 @@
 
 Factory-grade cleaning materials website (detergents, sanitizers, industrial
 degreasers, soaps). Bilingual Arabic (RTL) / English (LTR), with a reactive
-"Wojak" Rive character and rule-based chatbot.
+"Wojak" SVG character and rule-based chatbot.
 
 ## Monorepo layout
 
@@ -44,6 +44,13 @@ docs/        Wojak integration guide + future work
    npm install
    cp .env.example .env
    npm run dev
+   ```
+
+5. Create the first admin user (to access the admin dashboard at `/admin`):
+   ```bash
+   cd backend
+   source .venv/bin/activate
+   python scripts/create_admin.py admin@example.com
    ```
 
 API base: `http://localhost:8000/api/v1` · UI: `http://localhost:5173`

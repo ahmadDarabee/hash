@@ -127,7 +127,17 @@
     "priceListId": "Price list ID",
     "role": "Role",
     "email": "Email",
-    "type": "Type"
+    "type": "Type",
+    "dashboard": "Dashboard",
+    "subtitle": "Manage products, users, and compliance documents",
+    "quickActions": "Quick actions",
+    "comingSoon": "Coming soon",
+    "orders": "Orders",
+    "inventory": "Inventory",
+    "reports": "Reports",
+    "manageProducts": "Create and edit catalog products",
+    "manageUsers": "List users and assign price lists",
+    "uploadSds": "Upload safety data sheets"
   },
   "footer": {
     "tagline": "Factory-grade cleaning materials, delivered.",

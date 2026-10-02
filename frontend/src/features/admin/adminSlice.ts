@@ -13,9 +13,8 @@ import {
 interface AdminState {
   products: Product[]
   users: User[]
-  total: number
-  page: number
-  pageSize: number
+  productTotal: number
+  userTotal: number
   status: 'idle' | 'loading' | 'succeeded' | 'error'
   error: string | null
 }
@@ -23,9 +22,8 @@ interface AdminState {
 const initialState: AdminState = {
   products: [],
   users: [],
-  total: 0,
-  page: 1,
-  pageSize: 20,
+  productTotal: 0,
+  userTotal: 0,
   status: 'idle',
   error: null,
 }
@@ -41,9 +39,7 @@ const adminSlice = createSlice({
       })
       .addCase(adminListProducts.fulfilled, (state, action) => {
         state.products = action.payload.items
-        state.total = action.payload.total
-        state.page = action.payload.page
-        state.pageSize = action.payload.page_size
+        state.productTotal = action.payload.total
         state.status = 'succeeded'
       })
       .addCase(adminListProducts.rejected, (state, action) => {
@@ -52,6 +48,7 @@ const adminSlice = createSlice({
       })
       .addCase(adminCreateProduct.fulfilled, (state, action) => {
         state.products.unshift(action.payload)
+        state.productTotal += 1
       })
       .addCase(adminUpdateProduct.fulfilled, (state, action) => {
         const index = state.products.findIndex((p) => p.id === action.payload.id)
@@ -59,6 +56,7 @@ const adminSlice = createSlice({
       })
       .addCase(adminListUsers.fulfilled, (state, action) => {
         state.users = action.payload.items
+        state.userTotal = action.payload.total
       })
       .addCase(adminListUsers.rejected, (state, action) => {
         state.error = action.payload ?? 'failed to load users'
