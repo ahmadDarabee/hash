@@ -1,0 +1,4 @@
+-- =============================================================
+-- pricing — price lists and per-product price entries
+-- triggers.ddl — table triggers (none required for v1)
+-- =============================================================

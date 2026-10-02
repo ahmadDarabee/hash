@@ -1,0 +1,4 @@
+-- =============================================================
+-- order — orders and line items
+-- functions.ddl — feature functions (none required for v1)
+-- =============================================================

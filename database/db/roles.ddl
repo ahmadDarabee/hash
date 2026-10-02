@@ -1,0 +1,10 @@
+-- =============================================================
+-- roles.ddl — database login roles
+--
+-- Application roles (admin, customer_b2b, customer_b2c) are reference
+-- data defined in features/app_user/setup.ddl and seeded from
+-- seeds/0001_reference.sql.
+--
+-- Add database-level roles here (e.g. CREATE ROLE hash_app LOGIN ...)
+-- if/when the application needs a dedicated connection role.
+-- =============================================================

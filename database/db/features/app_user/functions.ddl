@@ -1,0 +1,4 @@
+-- =============================================================
+-- app_user — identity & access: roles, languages, users
+-- functions.ddl — feature functions (none required for v1)
+-- =============================================================

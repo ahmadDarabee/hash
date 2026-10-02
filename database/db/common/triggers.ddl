@@ -1,0 +1,4 @@
+-- =============================================================
+-- common — shared objects used across features
+-- triggers.ddl — shared triggers (applied last, after all features)
+-- =============================================================

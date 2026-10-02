@@ -1,0 +1,4 @@
+-- =============================================================
+-- common — shared objects used across features
+-- views.ddl — shared views (none required for v1)
+-- =============================================================

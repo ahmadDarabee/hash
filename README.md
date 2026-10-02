@@ -9,7 +9,7 @@ degreasers, soaps). Bilingual Arabic (RTL) / English (LTR), with a reactive
 ```
 backend/     FastAPI + asyncpg + raw SQL (no ORM), minimal DDD
 frontend/    React + TypeScript + Vite + Redux Toolkit + Tailwind
-database/    PostgreSQL migrations, seeds, reflected master DDL
+database/    PostgreSQL feature-scoped DDL, migrations, seeds
 docs/        Wojak integration guide + future work
 ```
 
@@ -20,11 +20,14 @@ docs/        Wojak integration guide + future work
    docker compose up -d
    ```
 
-2. Provision the database (migrate + seed + reflect):
+2. Provision the database:
    ```bash
    cd database/db
-   make migrate seed reflect
+   make all seed
    ```
+   `make all` builds the schema from the feature-scoped DDL files; `make seed`
+   loads reference data. Use `make dropdb` to reset, or `make migrate` to
+   apply `schema-migrations/*.sql`.
 
 3. Run the backend:
    ```bash
@@ -49,4 +52,5 @@ API base: `http://localhost:8000/api/v1` · UI: `http://localhost:5173`
 
 - `docs/WOJAK_INTEGRATION.md` — how events drive the Wojak character and chat.
 - `docs/FUTURE_WORK.md` — every stub, TODO, and deferred feature.
-- `database/db/schema.ddl.sql` — reflected full schema.
+- `database/db/features/<feature>/` — schema organized per domain, each with
+  `setup.ddl` (tables), `functions.ddl`, `triggers.ddl`, and `views.ddl`.

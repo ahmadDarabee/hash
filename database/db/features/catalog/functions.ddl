@@ -1,0 +1,4 @@
+-- =============================================================
+-- catalog — categories, products, product variants
+-- functions.ddl — feature functions (none required for v1)
+-- =============================================================

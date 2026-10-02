@@ -1,31 +1,86 @@
-# Hash database tasks. Requires psql/pg_dump on PATH.
-DBUSER ?= hash
-DBNAME ?= hash
-DBHOST ?= localhost
-DBPORT ?= 5432
-DBPASS ?= hash123
+DBUSER  = hash
+DBNAME  = hash
+DBHOST  = localhost
+DBPORT  = 5432
+DBPASS  = hash123
 
-export PGPASSWORD := $(DBPASS)
+PSQL_ENV = PGTZ=UTC PGPASSWORD=$(DBPASS)
+PSQL_FLAGS = -X -b -v ON_ERROR_STOP=1
+PSQL = $(PSQL_ENV) psql $(PSQL_FLAGS) \
+         -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DBNAME)
+CREATEDB = $(PSQL_ENV) createdb -h $(DBHOST) -U $(DBUSER) -p $(DBPORT)
+DROPDB   = $(PSQL_ENV) dropdb   -h $(DBHOST) -U $(DBUSER) -p $(DBPORT)
 
-PSQL = psql -X -v ON_ERROR_STOP=1 -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DBNAME)
+# Explicit application order. Position matters: tables referenced by a later
+# feature must already exist when that feature is provisioned.
+FEATURE_ORDER := app_user auth catalog pricing inventory compliance order quote
 
-MIGRATIONS := $(shell find migrations -type f -name '*.sql' | sort)
-SEEDS := $(shell find seeds -type f -name '*.sql' | sort)
+# Per-feature file order: functions before setup (declarations before use),
+# triggers after setup (tables must exist), views last.
+FEATURE_FILE_ORDER := functions.ddl setup.ddl triggers.ddl views.ddl
 
-.PHONY: migrate seed reflect provision
+FEATURE_FILES := $(foreach f,$(FEATURE_ORDER),\
+                   $(foreach g,$(FEATURE_FILE_ORDER),\
+                     $(wildcard features/$(f)/$(g))))
 
-# Apply migrations in order (idempotent files make re-runs safe).
+MIGRATIONS := $(wildcard schema-migrations/*.sql)
+SEEDS      := $(wildcard seeds/*.sql)
+
+.PHONY: all createdb provision provision-all migrate seed dropdb clean list list-order
+
+all: provision-all
+
+createdb:
+	@echo "[createdb] $(DBNAME)"
+	@ $(PSQL_ENV) psql -X -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d postgres \
+	    -tc "SELECT 1 FROM pg_database WHERE datname = '$(DBNAME)'" | grep -q 1 \
+	    || $(CREATEDB) $(DBNAME)
+	@ echo "[roles + extensions]"
+	@ $(PSQL) -f roles.ddl -f create.ddl
+	@ echo "[timezone]"
+	@ $(PSQL) -c "ALTER DATABASE $(DBNAME) SET timezone TO 'UTC';"
+
+provision: createdb
+	@echo "[common objects]"
+	@ $(PSQL) \
+	    -f common/functions.ddl \
+	    -f common/setup.ddl \
+	    -f common/views.ddl
+
+provision-all: provision
+	@echo "[features] applying $(words $(FEATURE_FILES)) file(s)..."
+	@for f in $(FEATURE_FILES); do \
+		echo "  -> $$f"; \
+		$(PSQL) -f "$$f" || exit 1; \
+	done
+	@ echo "[common triggers]"
+	@ $(PSQL) -f common/triggers.ddl
+	@echo "[done]"
+
 migrate:
-	@for f in $(MIGRATIONS); do echo "  -> $$f"; $(PSQL) -f "$$f" || exit 1; done
+	@echo "[migrations] applying $(words $(MIGRATIONS)) file(s)..."
+	@for f in $(MIGRATIONS); do \
+		echo "  -> $$f"; \
+		$(PSQL) -f "$$f" || exit 1; \
+	done
 
-# Load reference data.
 seed:
-	@for f in $(SEEDS); do echo "  -> $$f"; $(PSQL) -f "$$f" || exit 1; done
+	@echo "[seed] applying $(words $(SEEDS)) file(s)..."
+	@for f in $(SEEDS); do \
+		echo "  -> $$f"; \
+		$(PSQL) -f "$$f" || exit 1; \
+	done
 
-# Reflect the live schema into the master DDL file.
-reflect:
-	pg_dump --schema-only --no-owner --no-privileges \
-		-h $(DBHOST) -U $(DBUSER) -p $(DBPORT) $(DBNAME) > schema.ddl.sql
-	@echo "schema.ddl.sql updated."
+list-order:
+	@echo "feature order: $(FEATURE_ORDER)"
+	@echo
+	@echo "files (in application order):"
+	@for f in $(FEATURE_FILES); do echo "  $$f"; done
 
-provision: migrate seed reflect
+list: list-order
+
+dropdb:
+	@echo "[dropdb] $(DBNAME)"
+	@ $(DROPDB) --if-exists $(DBNAME)
+
+clean: dropdb

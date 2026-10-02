@@ -1,0 +1,4 @@
+-- =============================================================
+-- catalog — categories, products, product variants
+-- views.ddl — feature views (none required for v1)
+-- =============================================================

@@ -1,0 +1,4 @@
+-- =============================================================
+-- pricing — price lists and per-product price entries
+-- views.ddl — feature views (none required for v1)
+-- =============================================================

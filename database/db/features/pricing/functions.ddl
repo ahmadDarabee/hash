@@ -1,0 +1,4 @@
+-- =============================================================
+-- pricing — price lists and per-product price entries
+-- functions.ddl — feature functions (none required for v1)
+-- =============================================================

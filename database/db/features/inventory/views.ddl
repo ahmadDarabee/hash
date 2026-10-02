@@ -1,0 +1,4 @@
+-- =============================================================
+-- inventory — stock items and append-only movements
+-- views.ddl — feature views (none required for v1)
+-- =============================================================

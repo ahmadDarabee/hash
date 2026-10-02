@@ -1,0 +1,4 @@
+-- =============================================================
+-- compliance — SDS/MSDS documents and safety warnings
+-- functions.ddl — feature functions (none required for v1)
+-- =============================================================
