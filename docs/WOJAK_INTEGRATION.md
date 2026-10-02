@@ -1,8 +1,9 @@
 # Wojak integration guide
 
-Wojak is a reactive character and a rule-based chatbot. It never plays audio.
+Wojak is a reactive character and a rule-based chatbot. It is rendered as a
+simple inline SVG (no Rive, no animation runtime, no audio).
 
-## Reactive mode: Redux → wojakBus → Rive
+## Reactive mode: Redux → wojakBus → SVG face
 
 App events already exist as Redux actions. A single middleware maps those
 actions to Wojak moods.
@@ -11,23 +12,34 @@ actions to Wojak moods.
 Redux action (e.g. auth/login/fulfilled)
         │
         ▼
-wojakBus (src/features/wojak/wojakBus.ts)  ← Redux middleware
+wojakBus (src/features/wojak/wojakBus.ts)   ← Redux middleware
         │  matches action.type, dispatches setMood(...)
         ▼
 wojakSlice (src/features/wojak/wojakSlice.ts)
         │  holds: mood, poke counter, visible, chat state
         ▼
 Wojak component (src/components/wojak/Wojak.tsx)
-        │  passes mood + pokeToken to RiveCharacter
+        │  passes mood + pokeToken to WojakFace
         ▼
-RiveCharacter (src/components/wojak/RiveCharacter.tsx)
-        │  sets the Rive boolean input named `mood` to true (others false)
-        │  fires the `poke` trigger when pokeToken changes
+WojakFace (src/components/wojak/WojakFace.tsx)
+        │  maps mood → expression (eyes + mouth SVG shapes)
         ▼
-Rive state machine "Wojak" (frontend/public/rive/wojak.riv)
+inline <svg> face
 ```
 
-### Current reaction map (wojakBus.ts)
+### Mood → expression map (in `WojakFace.tsx`)
+
+| Mood | Expression |
+| --- | --- |
+| `idle` | neutral |
+| `happy`, `login_success`, `add_to_cart` | happy |
+| `sad`, `logout`, `cancel_order`, `empty_cart` | sad |
+| `confused` | confused |
+| `error` | error (X eyes) |
+| `loading` | loading (closed eyes) |
+| `excited`, `first_visit`, `language_switch` | excited |
+
+### Current reaction map (in `wojakBus.ts`)
 
 | Action | Mood |
 | --- | --- |
@@ -41,22 +53,24 @@ Rive state machine "Wojak" (frontend/public/rive/wojak.riv)
 
 Additional triggers:
 
-- **first_visit** — the `Wojak` component dispatches `setMood('first_visit')`
-  once per browser (guarded by `hash.visited` in localStorage).
+- **first_visit** — `Wojak.tsx` dispatches `setMood('first_visit')` once per
+  browser (guarded by `hash.visited` in localStorage).
 - **poke** — clicking the character dispatches `triggerPoke()`, which
-  increments `poke`; `RiveCharacter` then fires the Rive `poke` trigger.
-- **idle** — the Rive state machine's idle input is the default state.
-
-### Adding a reaction
-
-1. Add the mood to the `WojakMood` union in `wojakSlice.ts`.
-2. Add a matching boolean input in the Rive state machine.
-3. Add a rule in `wojakBus.ts`.
-4. (Optional) add a caption under `wojak.reactions.<mood>` in both
-   `src/i18n/ar.json` and `src/i18n/en.json`.
+  increments `poke`; `WojakFace` briefly applies the `.wojak-poke` CSS squash
+  animation (defined in `src/index.css`).
+- **idle** — the default mood/expression.
 
 Reaction captions: `Wojak.tsx` shows a short localized line from
 `wojak.reactions.<mood>` in a bubble for ~4 seconds.
+
+### Adding a reaction / expression
+
+1. Add the mood to the `WojakMood` union in `wojakSlice.ts`.
+2. Map it in `WojakFace.tsx`'s `EXPRESSION` table (or add a new expression and
+   its eyes/mouth SVG in `EYES` / `MOUTH`).
+3. Add a rule in `wojakBus.ts`.
+4. (Optional) add a caption under `wojak.reactions.<mood>` in both
+   `src/i18n/ar.json` and `src/i18n/en.json`.
 
 ## Chat mode
 

@@ -36,8 +36,9 @@ To enable one: write a real implementation, then swap the provider in
   SDS upload, user list, and per-customer price-list assignment.
 - **Wojak LLM adapter** — backend is rule-based intents. Swap
   `WojakChatService` (backend) and the frontend `WojakChatService` interface.
-- **Rive asset** — replace the placeholder with a real
-  `frontend/public/rive/wojak.riv` (see `frontend/public/rive/README.md`).
+- **Wojak art** — the character is a minimal inline SVG (`WojakFace.tsx`). If a
+  richer illustrated character is wanted later, replace it without touching the
+  mood/bus/chat wiring.
 
 ## Testing (not implemented)
 

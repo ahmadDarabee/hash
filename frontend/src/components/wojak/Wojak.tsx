@@ -12,10 +12,8 @@ import {
   type WojakMood,
 } from '../../features/wojak/wojakSlice'
 import { ChatIcon, CloseIcon } from '../icons'
-import { RiveCharacter } from './RiveCharacter'
+import { WojakFace } from './WojakFace'
 import { WojakChatPanel } from './WojakChatPanel'
-
-const RIVE_SRC = '/rive/wojak.riv'
 
 const REACTION_MOODS: WojakMood[] = [
   'first_visit',
@@ -94,18 +92,7 @@ export default function Wojak() {
           aria-label={t('wojak.name')}
           className="relative"
         >
-          <RiveCharacter
-            src={RIVE_SRC}
-            stateMachine="Wojak"
-            mood={mood}
-            pokeToken={poke}
-            className="h-28 w-28"
-            fallback={
-              <span className="flex h-28 w-28 items-center justify-center rounded-full bg-brand-100 text-4xl font-bold text-brand-700">
-                W
-              </span>
-            }
-          />
+          <WojakFace mood={mood} pokeToken={poke} className="h-28 w-28" />
         </button>
 
         <button
