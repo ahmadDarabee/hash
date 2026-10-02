@@ -1,4 +1,25 @@
-*.log
-.*
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
 uv.lock
-*__pycache__*
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Env (keep .env.example)
+.env
+.env.local
+
+# Uploads
+backend/uploads/
+
+# OS / logs
+.DS_Store
+*.log
+
+.*

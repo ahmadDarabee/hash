@@ -1,0 +1,1 @@
+"""Quote request use cases."""

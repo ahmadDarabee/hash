@@ -2,9 +2,18 @@ services:
   postgres:
     image: postgres:15
     ports:
-      - 5432:5432
-    
+      - "5432:5432"
     environment:
       POSTGRES_USER: hash
       POSTGRES_PASSWORD: hash123
       POSTGRES_DB: hash
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hash -d hash"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

@@ -1,0 +1,169 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "submit": "Submit",
+    "search": "Search",
+    "actions": "Actions",
+    "retry": "Retry",
+    "error": "Something went wrong",
+    "notFound": "Not found",
+    "close": "Close",
+    "send": "Send"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "compliance": "Compliance",
+    "quote": "Request a Quote",
+    "login": "Sign in",
+    "register": "Create account",
+    "logout": "Sign out",
+    "admin": "Admin",
+    "cart": "Cart"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "companyName": "Company name",
+    "customerType": "Account type",
+    "b2b": "Business (B2B)",
+    "b2c": "Individual (B2C)",
+    "preferredLanguage": "Preferred language",
+    "loginTitle": "Sign in",
+    "registerTitle": "Create an account",
+    "loginCta": "Sign in",
+    "registerCta": "Create account",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "loginFailed": "Sign in failed",
+    "b2bHint": "B2B accounts require a company name"
+  },
+  "catalog": {
+    "title": "Products",
+    "searchPlaceholder": "Search products...",
+    "allCategories": "All categories",
+    "sku": "SKU",
+    "brand": "Brand",
+    "unit": "Unit",
+    "addToCart": "Add to cart",
+    "viewDetails": "View details",
+    "noProducts": "No products found"
+  },
+  "product": {
+    "description": "Description",
+    "sds": "Safety Data Sheets (SDS)",
+    "warnings": "Safety warnings",
+    "noSds": "No SDS documents available",
+    "noWarnings": "No safety warnings",
+    "download": "Download",
+    "version": "Version",
+    "issuedAt": "Issued",
+    "language": "Language",
+    "severity": "Severity"
+  },
+  "severity": {
+    "info": "Info",
+    "warning": "Warning",
+    "danger": "Danger"
+  },
+  "compliance": {
+    "title": "Compliance & Safety",
+    "subtitle": "Safety data sheets and safe handling information",
+    "disclaimerTitle": "Important disclaimer",
+    "disclaimer": "Always read the Safety Data Sheet (SDS) and the product label before use. Follow the manufacturer's instructions and all local regulations. In an emergency, contact your local emergency services.",
+    "sdsTitle": "Safety Data Sheets",
+    "sdsText": "Each product page lists its SDS documents for download, in both Arabic and English.",
+    "safetyTitle": "Safety warnings",
+    "safetyText": "Safety warnings are shown on each product page by severity."
+  },
+  "quote": {
+    "title": "Request a Quote",
+    "subtitle": "For bulk and B2B orders",
+    "contactName": "Contact name",
+    "contactEmail": "Contact email",
+    "contactPhone": "Phone",
+    "companyName": "Company name",
+    "notes": "What do you need?",
+    "submit": "Send request",
+    "success": "Quote request sent. We will contact you shortly."
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "remove": "Remove",
+    "qty": "Qty"
+  },
+  "admin": {
+    "title": "Admin",
+    "products": "Products",
+    "users": "Users",
+    "sds": "Upload SDS",
+    "newProduct": "New product",
+    "editProduct": "Edit product",
+    "sku": "SKU",
+    "nameEn": "Name (EN)",
+    "nameAr": "Name (AR)",
+    "descriptionEn": "Description (EN)",
+    "descriptionAr": "Description (AR)",
+    "categoryId": "Category ID",
+    "brand": "Brand",
+    "unit": "Unit",
+    "isActive": "Active",
+    "create": "Create",
+    "update": "Update",
+    "productId": "Product ID",
+    "version": "Version",
+    "issuedAt": "Issue date",
+    "revisionNotes": "Revision notes",
+    "file": "SDS file (PDF)",
+    "upload": "Upload",
+    "assignPricing": "Assign price list",
+    "priceListId": "Price list ID",
+    "role": "Role",
+    "email": "Email",
+    "type": "Type"
+  },
+  "footer": {
+    "tagline": "Factory-grade cleaning materials, delivered.",
+    "rights": "All rights reserved."
+  },
+  "wojak": {
+    "name": "Wojak",
+    "toggle": {
+      "show": "Show Wojak",
+      "hide": "Hide Wojak"
+    },
+    "chat": {
+      "open": "Chat with Wojak",
+      "title": "Wojak",
+      "placeholder": "Ask me something...",
+      "send": "Send"
+    },
+    "intents": {
+      "greeting": ["Yes Chad, what do you need?", "Hey, ask me something useful.", "Not bad kid, you found me."],
+      "help": ["I talk products, prices, and SDS sheets. Ask away.", "Ask me about detergents, pricing, or compliance."],
+      "product": ["Cleaning stuff? We have the good chemicals.", "Degreasers, soaps, the whole arsenal."],
+      "sds": ["SDS sheets? Responsible. I respect it.", "Safety data lives under Compliance. I never joke about it."],
+      "pricing": ["Prices? Only serious customers ask. Good.", "B2B gets the special list. B2C gets the honest list."],
+      "contact": ["Want a human? Fine, I'll allow it.", "Contact details are on the site. Less funny than me."],
+      "fallback": ["Brainlet moment. Try asking about products or pricing.", "I didn't get that. My brain is smooth today."]
+    },
+    "reactions": {
+      "first_visit": ["Oh, a new face. Welcome to Hash.", "First time? I'll be here. Judging."],
+      "login_success": ["Welcome back, Chad.", "Logged in. The good stuff is unlocked."],
+      "logout": ["Leaving already? Okay then.", "Logging out. I'll remember this."],
+      "add_to_cart": ["Into the cart. Good choice.", "Added. Your cart is getting strong."],
+      "empty_cart": ["Cart's empty. Tragic.", "Nothing in the cart. Sad Wojak."],
+      "cancel_order": ["Order cancelled. It happens.", "Cancelled. I won't cry."],
+      "order_placed": ["Order placed. Let's go.", "Order in. Massive."],
+      "language_switch": ["Language switched. I'm bilingual now.", "Now I speak both. Impressive, right?"],
+      "error": ["Something broke. Not my fault.", "Error. Even I'm confused."]
+    }
+  }
+}
