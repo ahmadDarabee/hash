@@ -4,7 +4,7 @@
 -- =============================================================
 
 -- Keep a row's updated_at column fresh on every UPDATE.
-CREATE OR REPLACE FUNCTION set_updated_at()
+CREATE OR REPLACE FUNCTION set_updated_at_tg()
 RETURNS trigger
 LANGUAGE plpgsql
 AS $$
