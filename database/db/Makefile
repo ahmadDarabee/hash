@@ -32,9 +32,7 @@ all: provision-all
 
 createdb:
 	@echo "[createdb] $(DBNAME)"
-	@ $(PSQL_ENV) psql -X -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d postgres \
-	    -tc "SELECT 1 FROM pg_database WHERE datname = '$(DBNAME)'" | grep -q 1 \
-	    || $(CREATEDB) $(DBNAME)
+	$(CREATEDB) $(DBNAME)
 	@ echo "[roles + extensions]"
 	@ $(PSQL) -f roles.ddl -f create.ddl
 	@ echo "[timezone]"
