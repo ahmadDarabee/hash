@@ -45,7 +45,7 @@ class UserResponse(BaseModel):
     preferred_language: Language
     company_name: str | None = None
     is_active: bool = True
-    created_at: dt.datetime | None = None
+    created_at: dt.datetime = None
 
 
 class AuthResponse(BaseModel):
