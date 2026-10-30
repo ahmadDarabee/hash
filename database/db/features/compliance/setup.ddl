@@ -4,7 +4,7 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS sds_documents (
+CREATE TABLE IF NOT EXISTS sds_document (
     id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id     UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
     language       TEXT NOT NULL CHECK (language IN ('ar', 'en')),
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS sds_documents (
     revision_notes TEXT
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS safety_warnings (
+CREATE TABLE IF NOT EXISTS safety_warning (
     id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
     language   TEXT NOT NULL CHECK (language IN ('ar', 'en')),

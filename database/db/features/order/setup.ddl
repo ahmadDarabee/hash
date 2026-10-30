@@ -4,7 +4,7 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE IF NOT EXISTS order (
     id       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id  UUID NOT NULL REFERENCES users (id),
     status   TEXT NOT NULL DEFAULT 'draft'
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS orders (
     currency CHAR(3) NOT NULL DEFAULT 'SAR'
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE IF NOT EXISTS order_item (
     id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     order_id   UUID NOT NULL REFERENCES orders (id) ON DELETE CASCADE,
     product_id UUID NOT NULL REFERENCES products (id),

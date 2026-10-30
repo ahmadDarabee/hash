@@ -4,7 +4,7 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE IF NOT EXISTS categorie (
     id        SERIAL PRIMARY KEY,
     slug      TEXT NOT NULL UNIQUE,
     name_en   TEXT NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS categories (
     parent_id INTEGER REFERENCES categories (id)
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE IF NOT EXISTS product (
     id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     sku            TEXT NOT NULL UNIQUE,
     name_en        TEXT NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS products (
     deleted_at     TIMESTAMPTZ
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS product_variants (
+CREATE TABLE IF NOT EXISTS product_variant (
     id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
     size       NUMERIC(12, 2) NOT NULL,

@@ -6,7 +6,7 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS inventory_items (
+CREATE TABLE IF NOT EXISTS inventory_item (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id    UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
     location      TEXT NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS inventory_items (
     reorder_level NUMERIC(12, 2) NOT NULL DEFAULT 0
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS inventory_movements (
+CREATE TABLE IF NOT EXISTS inventory_movement (
     id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     inventory_item_id UUID NOT NULL REFERENCES inventory_items (id) ON DELETE CASCADE,
     type              TEXT NOT NULL CHECK (type IN ('in', 'out', 'adjust')),

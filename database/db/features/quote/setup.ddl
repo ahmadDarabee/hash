@@ -4,7 +4,7 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS quote_requests (
+CREATE TABLE IF NOT EXISTS quote_request (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id       UUID REFERENCES users (id),
     contact_name  TEXT NOT NULL,

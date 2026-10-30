@@ -4,14 +4,14 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS price_lists (
+CREATE TABLE IF NOT EXISTS price_list (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name        TEXT NOT NULL,
     customer_id UUID REFERENCES users (id),
     is_default  BOOLEAN NOT NULL DEFAULT FALSE
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS price_list_items (
+CREATE TABLE IF NOT EXISTS price_list_item (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     price_list_id UUID NOT NULL REFERENCES price_lists (id) ON DELETE CASCADE,
     product_id    UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
