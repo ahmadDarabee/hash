@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from api.errors import register_exception_handlers
-from api.routers import admin, auth, categories, pricing, products, quotes, wojak
+from api.routers import admin, auth, categories, pricing, products
 from core.config import get_settings
 from core.logging import setup_logging
 from infrastructure.db import close_pool, create_pool
@@ -49,9 +49,7 @@ for router in (
     products.router,
     categories.router,
     pricing.router,
-    quotes.router,
     admin.router,
-    wojak.router,
 ):
     app.include_router(router, prefix="/api/v1")
 

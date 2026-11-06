@@ -10,7 +10,6 @@ from application.ports.notification import NotificationProvider
 from application.ports.payment import PaymentProvider
 from application.ports.storage import StorageAdapter
 from application.ports.tracking import OrderTrackingProvider
-from application.ports.wojak import WojakChatService
 from application.use_cases.admin.assign_pricing import AdminAssignPricing
 from application.use_cases.admin.create_product import AdminCreateProduct
 from application.use_cases.admin.create_sds import AdminCreateSds
@@ -27,8 +26,6 @@ from application.use_cases.catalog.get_warnings import GetProductWarnings
 from application.use_cases.catalog.list_categories import ListCategories
 from application.use_cases.catalog.list_products import ListProducts
 from application.use_cases.pricing.get_effective_pricing import GetEffectivePricing
-from application.use_cases.quotes.request_quote import RequestQuote
-from application.use_cases.wojak.chat import WojakChat
 from core.config import get_settings
 from core.security import decode_access_token
 from domain.entities import User
@@ -38,13 +35,11 @@ from infrastructure.adapters.local_storage import LocalDiskStorage
 from infrastructure.adapters.noop_notification import NoopNotificationProvider
 from infrastructure.adapters.noop_payment import NoopPaymentProvider
 from infrastructure.adapters.noop_tracking import NoopOrderTrackingProvider
-from infrastructure.adapters.rule_based_wojak import RuleBasedWojakChatService
 from infrastructure.repositories.category_repository import CategoryRepository
 from infrastructure.repositories.compliance_repository import ComplianceRepository
 from infrastructure.repositories.inventory_repository import InventoryRepository
 from infrastructure.repositories.pricing_repository import PricingRepository
 from infrastructure.repositories.product_repository import ProductRepository
-from infrastructure.repositories.quote_repository import QuoteRepository
 from infrastructure.repositories.refresh_token_repository import RefreshTokenRepository
 from infrastructure.repositories.user_repository import UserRepository
 
@@ -80,10 +75,6 @@ def get_compliance_repository(pool: asyncpg.Pool = Depends(get_pool)) -> Complia
     return ComplianceRepository(pool)
 
 
-def get_quote_repository(pool: asyncpg.Pool = Depends(get_pool)) -> QuoteRepository:
-    return QuoteRepository(pool)
-
-
 def get_inventory_repository(pool: asyncpg.Pool = Depends(get_pool)) -> InventoryRepository:
     return InventoryRepository(pool)
 
@@ -91,9 +82,6 @@ def get_inventory_repository(pool: asyncpg.Pool = Depends(get_pool)) -> Inventor
 def get_storage() -> StorageAdapter:
     return LocalDiskStorage(get_settings().sds_upload_dir)
 
-
-def get_wojak_service() -> WojakChatService:
-    return RuleBasedWojakChatService()
 
 
 def get_payment_provider() -> PaymentProvider:
@@ -176,12 +164,6 @@ def get_effective_pricing(
     return GetEffectivePricing(pricing)
 
 
-def get_request_quote(
-    quotes: QuoteRepository = Depends(get_quote_repository),
-) -> RequestQuote:
-    return RequestQuote(quotes)
-
-
 def get_admin_list_products(
     products: ProductRepository = Depends(get_product_repository),
 ) -> AdminListProducts:
@@ -219,13 +201,6 @@ def get_admin_assign_pricing(
     pricing: PricingRepository = Depends(get_pricing_repository),
 ) -> AdminAssignPricing:
     return AdminAssignPricing(users, pricing)
-
-
-def get_wojak_chat(
-    service: WojakChatService = Depends(get_wojak_service),
-) -> WojakChat:
-    return WojakChat(service)
-
 
 # --- Auth guards -------------------------------------------------------------
 
