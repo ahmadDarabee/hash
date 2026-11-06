@@ -21,14 +21,20 @@ async def main(email: str, password: str) -> None:
     settings = get_settings()
     conn = await asyncpg.connect(settings.database_url)
     try:
-        await conn.execute(
-            """
-            INSERT INTO users (email, password_hash, role_id, customer_type, preferred_language)
-            VALUES ($1, $2, (SELECT id FROM roles WHERE name = 'admin'), 'b2b', 'ar')
-            """,
-            email,
-            hash_password(password),
-        )
+        async with conn.transaction():
+            user_id = await conn.fetchval(
+                """
+                INSERT INTO acl_user (email, password, company_name, preferred_language)
+                VALUES ($1, $2, NULL, 'ar')
+                RETURNING id
+                """,
+                email,
+                hash_password(password),
+            )
+            await conn.execute(
+                "INSERT INTO acl_user_group (user_id, group_name) VALUES ($1, 'admin')",
+                user_id,
+            )
     finally:
         await conn.close()
     print(f"Admin user created: {email}")
