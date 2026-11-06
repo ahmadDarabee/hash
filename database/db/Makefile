@@ -26,7 +26,7 @@ FEATURE_FILES := $(foreach f,$(FEATURE_ORDER),\
 MIGRATIONS := $(wildcard schema-migrations/*.sql)
 SEEDS      := $(wildcard seeds/*.sql)
 
-.PHONY: all createdb provision provision-all migrate seed dropdb clean list list-order
+.PHONY: all createdb provision provision-all migrate seed dropdb clean list list-order test-data
 
 all: provision-all
 
@@ -80,5 +80,9 @@ list: list-order
 dropdb:
 	@echo "[dropdb] $(DBNAME)"
 	@ $(DROPDB) --if-exists $(DBNAME)
+
+
+test-data:
+	$(PSQL) -f test-data/seed.sql
 
 clean: dropdb

@@ -1,0 +1,112 @@
+-- -- =============================================================
+-- -- 0007_compliance.sql — SDS documents + safety warnings.
+-- --
+-- -- Every active product gets an EN + AR SDS (v1.0). Two products also
+-- -- carry a newer v2.0 to exercise version/date ordering. Warnings are
+-- -- seeded by severity (danger/warning/info) in both languages.
+-- -- =============================================================
+
+-- -- ---------------- SDS documents ----------------
+
+-- INSERT INTO sds_document
+--     (id, product_id, language, version, file_url, issued_at, revision_notes)
+-- VALUES
+--     (1,  1,  'en', '1.0', '/uploads/sds/DET-HD100-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (2,  1,  'ar', '1.0', '/uploads/sds/DET-HD100-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (3,  2,  'en', '1.0', '/uploads/sds/DET-KP500-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (4,  2,  'ar', '1.0', '/uploads/sds/DET-KP500-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (5,  3,  'en', '1.0', '/uploads/sds/DET-LA300-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (6,  3,  'ar', '1.0', '/uploads/sds/DET-LA300-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (7,  4,  'en', '1.0', '/uploads/sds/SAN-QS200-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (8,  4,  'ar', '1.0', '/uploads/sds/SAN-QS200-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (9,  5,  'en', '1.0', '/uploads/sds/SAN-AL700-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (10, 5,  'ar', '1.0', '/uploads/sds/SAN-AL700-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (11, 6,  'en', '1.0', '/uploads/sds/SAN-PA400-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (12, 6,  'ar', '1.0', '/uploads/sds/SAN-PA400-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (13, 7,  'en', '1.0', '/uploads/sds/DEG-DG900-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (14, 7,  'ar', '1.0', '/uploads/sds/DEG-DG900-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (15, 8,  'en', '1.0', '/uploads/sds/DEG-MG600-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (16, 8,  'ar', '1.0', '/uploads/sds/DEG-MG600-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (17, 9,  'en', '1.0', '/uploads/sds/DEG-EG350-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (18, 9,  'ar', '1.0', '/uploads/sds/DEG-EG350-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (19, 10, 'en', '1.0', '/uploads/sds/SOAP-HS100-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (20, 10, 'ar', '1.0', '/uploads/sds/SOAP-HS100-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (21, 11, 'en', '1.0', '/uploads/sds/SOAP-LS150-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (22, 11, 'ar', '1.0', '/uploads/sds/SOAP-LS150-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (23, 12, 'en', '1.0', '/uploads/sds/SOAP-SS120-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (24, 12, 'ar', '1.0', '/uploads/sds/SOAP-SS120-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (25, 13, 'en', '1.0', '/uploads/sds/DESC-DS800-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (26, 13, 'ar', '1.0', '/uploads/sds/DESC-DS800-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (27, 14, 'en', '1.0', '/uploads/sds/DESC-DS810-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (28, 14, 'ar', '1.0', '/uploads/sds/DESC-DS810-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (29, 15, 'en', '1.0', '/uploads/sds/FLOOR-FC700-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (30, 15, 'ar', '1.0', '/uploads/sds/FLOOR-FC700-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (31, 16, 'en', '1.0', '/uploads/sds/FLOOR-FC710-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (32, 16, 'ar', '1.0', '/uploads/sds/FLOOR-FC710-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (33, 17, 'en', '1.0', '/uploads/sds/LAU-LD200-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (34, 17, 'ar', '1.0', '/uploads/sds/LAU-LD200-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (35, 18, 'en', '1.0', '/uploads/sds/LAU-LD210-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (36, 18, 'ar', '1.0', '/uploads/sds/LAU-LD210-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (37, 19, 'en', '1.0', '/uploads/sds/DIS-DI500-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (38, 19, 'ar', '1.0', '/uploads/sds/DIS-DI500-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+--     (39, 20, 'en', '1.0', '/uploads/sds/DIS-DI510-en-v1.0.pdf', '2026-01-10', 'Initial release'),
+--     (40, 20, 'ar', '1.0', '/uploads/sds/DIS-DI510-ar-v1.0.pdf', '2026-01-10', 'الإصدار الأول'),
+
+--     -- Newer revisions to exercise ordering by issued_at/version.
+--     (41, 7, 'en', '2.0', '/uploads/sds/DEG-DG900-en-v2.0.pdf', '2026-01-14', 'Updated PPE and first-aid guidance'),
+--     (42, 4, 'ar', '2.0', '/uploads/sds/SAN-QS200-ar-v2.0.pdf', '2026-01-13', 'توضيح إرشادات معدات الوقاية')
+-- ON CONFLICT (id) DO NOTHING;
+
+-- SELECT setval('sds_document_id_seq', (SELECT MAX(id) FROM sds_document));
+
+-- -- ---------------- Safety warnings ----------------
+
+-- INSERT INTO safety_warning (id, product_id, language, severity, text) VALUES
+--     -- danger (corrosive / toxic)
+--     (1,  7,  'en', 'danger', 'Corrosive. Causes severe skin burns and eye damage. Wear chemical-resistant gloves, goggles and protective clothing.'),
+--     (2,  7,  'ar', 'danger', 'مادة أكالة. تسبب حروقاً شديدة للجلد وتلفاً للعينين. ارتدِ قفازات مقاومة للمواد الكيميائية ونظارات واقية وملابس واقية.'),
+--     (3,  8,  'en', 'danger', 'Causes severe skin burns and eye damage. Avoid breathing vapours.'),
+--     (4,  8,  'ar', 'danger', 'يسبب حروقاً شديدة للجلد وتلفاً للعينين. تجنب استنشاق الأبخرة.'),
+--     (5,  9,  'en', 'danger', 'May cause respiratory irritation. Use only with adequate ventilation.'),
+--     (6,  9,  'ar', 'danger', 'قد يسبب تهيجاً في الجهاز التنفسي. استخدم فقط مع تهوية كافية.'),
+--     (7,  13, 'en', 'danger', 'Strong acid. Reacts with metals. Never mix with bleach or alkaline products.'),
+--     (8,  13, 'ar', 'danger', 'حمض قوي. يتفاعل مع المعادن. لا تخلطه أبداً مع المبيضات أو المنتجات القلوية.'),
+--     (9,  14, 'en', 'danger', 'Irritating acid. Do not mix with bleach. Wear gloves and eye protection.'),
+--     (10, 14, 'ar', 'danger', 'حمض مهيج. لا تخلطه مع المبيضات. ارتدِ قفازات وحماية للعينين.'),
+--     (11, 19, 'en', 'danger', 'Concentrated disinfectant. Toxic if swallowed. Keep locked and out of reach of children.'),
+--     (12, 19, 'ar', 'danger', 'مطهر مركّز. سام إذا ابتُلع. يُحفظ مقفلاً وبعيداً عن متناول الأطفال.'),
+--     (13, 20, 'en', 'danger', 'High-level disinfectant. For trained professionals only. Corrosive to skin and eyes.'),
+--     (14, 20, 'ar', 'danger', 'مطهر عالي المستوى. للمتخصصين المدربين فقط. مادة أكالة للجلد والعينين.'),
+
+--     -- warning (irritant)
+--     (15, 1,  'en', 'warning', 'Causes skin and eye irritation. Avoid breathing vapours. Use in a well-ventilated area.'),
+--     (16, 1,  'ar', 'warning', 'يسبب تهيجاً للجلد والعينين. تجنب استنشاق الأبخرة. استخدم في مكان جيد التهوية.'),
+--     (17, 2,  'en', 'warning', 'May irritate eyes. Rinse immediately if product enters eyes.'),
+--     (18, 2,  'ar', 'warning', 'قد يهيج العينين. اشطف فوراً إذا دخل المنتج إلى العينين.'),
+--     (19, 3,  'en', 'warning', 'Concentrated. Dilute before use. Wear gloves for prolonged handling.'),
+--     (20, 3,  'ar', 'warning', 'مركّز. خفّفه قبل الاستخدام. ارتدِ قفازات عند التعامل المطوّل.'),
+--     (21, 4,  'en', 'warning', 'Biocide. Use only as directed. Do not mix with detergents.'),
+--     (22, 4,  'ar', 'warning', 'مبيد حيوي. استخدمه فقط حسب التعليمات. لا تخلطه مع المنظفات.'),
+--     (23, 5,  'en', 'warning', 'Highly flammable liquid. Keep away from heat, sparks and open flame.'),
+--     (24, 5,  'ar', 'warning', 'سائل سريع الاشتعال. يُحفظ بعيداً عن الحرارة والشرر واللهب المكشوف.'),
+--     (25, 6,  'en', 'warning', 'Strong oxidiser. Store away from organic materials.'),
+--     (26, 6,  'ar', 'warning', 'مؤكسد قوي. يُخزن بعيداً عن المواد العضوية.'),
+--     (27, 16, 'en', 'warning', 'Alkaline stripper. Wear gloves and avoid contact with skin.'),
+--     (28, 16, 'ar', 'warning', 'مزيل طبقات قلوي. ارتدِ قفازات وتجنب ملامسة الجلد.'),
+
+--     -- info (general handling)
+--     (29, 10, 'en', 'info', 'Keep out of reach of children. Store in the original container in a cool, dry place.'),
+--     (30, 10, 'ar', 'info', 'يُحفظ بعيداً عن متناول الأطفال. يُخزن في العبوة الأصلية في مكان بارد وجاف.'),
+--     (31, 11, 'en', 'info', 'For industrial formulation use. Follow dilution guidance on the label.'),
+--     (32, 11, 'ar', 'info', 'للاستخدام الصناعي في التركيبات. اتبع إرشادات التخفيف على الملصق.'),
+--     (33, 12, 'en', 'info', 'Mild formula. Discontinue use if irritation occurs.'),
+--     (34, 12, 'ar', 'info', 'تركيبة لطيفة. توقف عن الاستخدام إذا حدث تهيج.'),
+--     (35, 15, 'en', 'info', 'Keep floor surfaces dry after application to avoid slipping.'),
+--     (36, 15, 'ar', 'info', 'حافظ على جفاف الأرضيات بعد الاستخدام لتجنب الانزلاق.'),
+--     (37, 17, 'en', 'info', 'Store in a dry place. Avoid inhalation of dust.'),
+--     (38, 17, 'ar', 'info', 'يُخزن في مكان جاف. تجنب استنشاق الغبار.'),
+--     (39, 18, 'en', 'info', 'Do not ingest. Rinse fabrics thoroughly after washing.'),
+--     (40, 18, 'ar', 'info', 'لا تبتلعه. اشطف الأقمشة جيداً بعد الغسيل.')
+-- ON CONFLICT (id) DO NOTHING;
+
+-- SELECT setval('safety_warning_id_seq', (SELECT MAX(id) FROM safety_warning));
