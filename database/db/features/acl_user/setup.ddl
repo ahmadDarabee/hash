@@ -4,8 +4,8 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS user (
-    id                 SERIAL INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS acl_user (
+    id                 SERIAL PRIMARY KEY,
     email              TEXT NOT NULL UNIQUE,
     password           TEXT NOT NULL,
     company_name       TEXT,
@@ -15,24 +15,24 @@ CREATE TABLE IF NOT EXISTS user (
     deleted_at         TIMESTAMPTZ
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS privilege (
+CREATE TABLE IF NOT EXISTS acl_privilege (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     name TEXT PRIMARY KEY
 );
 
-CREATE TABLE IF NOT EXISTS group (
+CREATE TABLE IF NOT EXISTS acl_group (
     name TEXT PRIMARY KEY
 );
 
-CREATE TABLE IF NOT EXISTS groups_privilege (
-    group_name TEXT REFERENCES groups (name),
-    privilege_name TEXT REFERENCES privileges (name),
+CREATE TABLE IF NOT EXISTS acl_group_privilege (
+    group_name TEXT REFERENCES acl_group (name),
+    privilege_name TEXT REFERENCES acl_privilege (name),
     PRIMARY KEY (group_name, privilege_name)
 ) INHERITS (audit);
 
-CREATE TABLE IF NOT EXISTS users_group (
-    user_id UUID REFERENCES users (id),
-    group_name TEXT REFERENCES groups (name),
+CREATE TABLE IF NOT EXISTS acl_user_group (
+    user_id INT REFERENCES acl_user (id),
+    group_name TEXT REFERENCES acl_group (name),
     PRIMARY KEY (user_id, group_name)
 ) INHERITS (audit);
 

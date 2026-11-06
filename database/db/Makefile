@@ -13,7 +13,7 @@ DROPDB   = $(PSQL_ENV) dropdb   -h $(DBHOST) -U $(DBUSER) -p $(DBPORT)
 
 # Explicit application order. Position matters: tables referenced by a later
 # feature must already exist when that feature is provisioned.
-FEATURE_ORDER := app_user auth catalog pricing inventory compliance order quote
+FEATURE_ORDER := acl_user auth catalog pricing inventory compliance order
 
 # Per-feature file order: functions before setup (declarations before use),
 # triggers after setup (tables must exist), views last.

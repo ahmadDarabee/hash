@@ -4,22 +4,22 @@
 -- All tables inherit audit columns via INHERITS (audit).
 -- =============================================================
 
-CREATE TABLE IF NOT EXISTS categorie (
+CREATE TABLE IF NOT EXISTS category (
     id        SERIAL PRIMARY KEY,
     slug      TEXT NOT NULL UNIQUE,
     name_en   TEXT NOT NULL,
     name_ar   TEXT NOT NULL,
-    parent_id INTEGER REFERENCES categories (id)
+    parent_id INTEGER REFERENCES category (id)
 ) INHERITS (audit);
 
 CREATE TABLE IF NOT EXISTS product (
-    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id             SERIAL PRIMARY KEY, 
     sku            TEXT NOT NULL UNIQUE,
     name_en        TEXT NOT NULL,
     name_ar        TEXT NOT NULL,
     description_en TEXT,
     description_ar TEXT,
-    category_id    INTEGER NOT NULL REFERENCES categories (id),
+    category_id    INTEGER NOT NULL REFERENCES category (id),
     brand          TEXT NOT NULL,
     unit           TEXT NOT NULL,
     kind           TEXT NOT NULL DEFAULT 'finished'
@@ -29,13 +29,13 @@ CREATE TABLE IF NOT EXISTS product (
 ) INHERITS (audit);
 
 CREATE TABLE IF NOT EXISTS product_variant (
-    id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
+    id         SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL REFERENCES product (id) ON DELETE CASCADE,
     size       NUMERIC(12, 2) NOT NULL,
     unit       TEXT NOT NULL,
     packaging  TEXT NOT NULL
 ) INHERITS (audit);
 
-CREATE INDEX IF NOT EXISTS idx_products_category ON products (category_id);
-CREATE INDEX IF NOT EXISTS idx_products_sku ON products (sku);
-CREATE INDEX IF NOT EXISTS idx_product_variants_product ON product_variants (product_id);
+CREATE INDEX IF NOT EXISTS idx_products_category ON product (category_id);
+CREATE INDEX IF NOT EXISTS idx_products_sku ON product (sku);
+CREATE INDEX IF NOT EXISTS idx_product_variants_product ON product_variant (product_id);

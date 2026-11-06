@@ -5,16 +5,16 @@
 -- =============================================================
 
 CREATE TABLE IF NOT EXISTS price_list (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id          SERIAL PRIMARY KEY,
     name        TEXT NOT NULL,
-    customer_id UUID REFERENCES users (id),
+    customer_id INTEGER REFERENCES acl_user (id),
     is_default  BOOLEAN NOT NULL DEFAULT FALSE
 ) INHERITS (audit);
 
 CREATE TABLE IF NOT EXISTS price_list_item (
-    id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    price_list_id UUID NOT NULL REFERENCES price_lists (id) ON DELETE CASCADE,
-    product_id    UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
+    id            SERIAL PRIMARY KEY,
+    price_list_id INTEGER NOT NULL REFERENCES price_list (id) ON DELETE CASCADE,
+    product_id    INTEGER NOT NULL REFERENCES product (id) ON DELETE CASCADE,
     price         NUMERIC(12, 2) NOT NULL CHECK (price >= 0),
     currency      CHAR(3) NOT NULL DEFAULT 'SAR',
     min_qty       NUMERIC(12, 2) NOT NULL DEFAULT 1 CHECK (min_qty >= 1),
@@ -23,6 +23,6 @@ CREATE TABLE IF NOT EXISTS price_list_item (
     UNIQUE (price_list_id, product_id, min_qty)
 ) INHERITS (audit);
 
-CREATE INDEX IF NOT EXISTS idx_price_lists_customer ON price_lists (customer_id);
-CREATE INDEX IF NOT EXISTS idx_price_list_items_list ON price_list_items (price_list_id);
-CREATE INDEX IF NOT EXISTS idx_price_list_items_product ON price_list_items (product_id);
+CREATE INDEX IF NOT EXISTS idx_price_lists_customer ON price_list (customer_id);
+CREATE INDEX IF NOT EXISTS idx_price_list_items_list ON price_list_item (price_list_id);
+CREATE INDEX IF NOT EXISTS idx_price_list_items_product ON price_list_item (product_id);

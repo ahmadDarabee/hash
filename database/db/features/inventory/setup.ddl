@@ -7,8 +7,8 @@
 -- =============================================================
 
 CREATE TABLE IF NOT EXISTS inventory_item (
-    id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id    UUID NOT NULL REFERENCES products (id) ON DELETE CASCADE,
+    id            SERIAL PRIMARY KEY,
+    product_id    INTEGER NOT NULL REFERENCES product (id) ON DELETE CASCADE,
     location      TEXT NOT NULL,
     qty_on_hand   NUMERIC(12, 2) NOT NULL DEFAULT 0,
     qty_reserved  NUMERIC(12, 2) NOT NULL DEFAULT 0,
@@ -16,13 +16,13 @@ CREATE TABLE IF NOT EXISTS inventory_item (
 ) INHERITS (audit);
 
 CREATE TABLE IF NOT EXISTS inventory_movement (
-    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    inventory_item_id UUID NOT NULL REFERENCES inventory_items (id) ON DELETE CASCADE,
+    id                SERIAL PRIMARY KEY,
+    inventory_item_id INTEGER NOT NULL REFERENCES inventory_item (id) ON DELETE CASCADE,
     type              TEXT NOT NULL CHECK (type IN ('in', 'out', 'adjust')),
     qty               NUMERIC(12, 2) NOT NULL,
     reason            TEXT,
-    ref_id            UUID
+    ref_id            INTEGER
 ) INHERITS (audit);
 
-CREATE INDEX IF NOT EXISTS idx_inventory_items_product ON inventory_items (product_id);
-CREATE INDEX IF NOT EXISTS idx_inventory_movements_item ON inventory_movements (inventory_item_id);
+CREATE INDEX IF NOT EXISTS idx_inventory_items_product ON inventory_item (product_id);
+CREATE INDEX IF NOT EXISTS idx_inventory_movements_item ON inventory_movement (inventory_item_id);
