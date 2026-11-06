@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../app/hooks'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
 import { Input } from '../../components/ui/Input'
+import { Select } from '../../components/ui/Select'
 import { adminUploadSds } from '../../features/admin/adminThunks'
 
 const emptyForm = {
@@ -47,22 +48,19 @@ export default function AdminSdsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">{t('admin.sds')}</h1>
-      {message && <p className="mt-4 text-sm text-brand-700">{message}</p>}
-      <Card className="mt-6">
+      <h1 className="text-2xl font-bold text-ink">{t('admin.sds')}</h1>
+      {message && <p className="mt-4 text-sm text-brand">{message}</p>}
+      <Card glass className="mt-6">
         <form onSubmit={onSubmit} className="grid gap-3 sm:grid-cols-2">
           <Input label={t('admin.productId')} value={form.product_id} onChange={(e) => setForm({ ...form, product_id: e.target.value })} required />
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">{t('product.language')}</label>
-            <select
-              value={form.language}
-              onChange={(e) => setForm({ ...form, language: e.target.value })}
-              className="rounded-md border border-gray-300 px-3 py-2 text-sm"
-            >
-              <option value="ar">العربية</option>
-              <option value="en">English</option>
-            </select>
-          </div>
+          <Select
+            label={t('product.language')}
+            value={form.language}
+            onChange={(e) => setForm({ ...form, language: e.target.value })}
+          >
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+          </Select>
           <Input label={t('admin.version')} value={form.version} onChange={(e) => setForm({ ...form, version: e.target.value })} required />
           <Input label={t('admin.issuedAt')} type="date" value={form.issued_at} onChange={(e) => setForm({ ...form, issued_at: e.target.value })} required />
           <Input
@@ -70,14 +68,17 @@ export default function AdminSdsPage() {
             value={form.revision_notes}
             onChange={(e) => setForm({ ...form, revision_notes: e.target.value })}
           />
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">{t('admin.file')}</label>
-            <input
-              type="file"
-              accept="application/pdf"
-              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="text-sm"
-            />
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-ink">{t('admin.file')}</label>
+            <label className="glass pressable flex cursor-pointer items-center justify-center rounded-xl px-3.5 py-2.5 text-sm text-muted hover:text-ink">
+              <input
+                type="file"
+                accept="application/pdf"
+                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                className="hidden"
+              />
+              {file ? file.name : t('admin.chooseFile')}
+            </label>
           </div>
           <Button type="submit" className="sm:col-span-2">
             {t('admin.upload')}

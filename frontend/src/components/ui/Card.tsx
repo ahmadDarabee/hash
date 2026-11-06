@@ -1,7 +1,17 @@
 import type { HTMLAttributes } from 'react'
 
-export function Card({ className = '', ...rest }: HTMLAttributes<HTMLDivElement>) {
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  glass?: boolean
+  interactive?: boolean
+}
+
+export function Card({ className = '', glass = false, interactive = false, ...rest }: CardProps) {
   return (
-    <div className={`rounded-lg border border-gray-200 bg-white p-4 shadow-sm ${className}`} {...rest} />
+    <div
+      className={`rounded-2xl ${glass ? 'glass' : 'bg-surface border border-line'} ${
+        interactive ? 'hover-lift pressable cursor-pointer' : ''
+      } ${className}`}
+      {...rest}
+    />
   )
 }

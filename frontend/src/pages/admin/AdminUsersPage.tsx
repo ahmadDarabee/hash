@@ -21,10 +21,10 @@ function UserRow({ user }: { user: User }) {
   }
 
   return (
-    <Card className="flex flex-wrap items-center justify-between gap-3">
+    <Card glass className="flex flex-wrap items-center justify-between gap-3">
       <div>
-        <p className="font-semibold">{user.email}</p>
-        <p className="text-sm text-gray-500">
+        <p className="font-semibold text-ink">{user.email}</p>
+        <p className="text-sm text-muted">
           {t('admin.role')}: {user.role} · {t('admin.type')}: {user.customer_type}
         </p>
       </div>
@@ -54,7 +54,7 @@ export default function AdminUsersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">{t('admin.users')}</h1>
+      <h1 className="text-2xl font-bold text-ink">{t('admin.users')}</h1>
       <div className="mt-6 space-y-3">
         {users.map((user) => (
           <UserRow key={user.id} user={user} />

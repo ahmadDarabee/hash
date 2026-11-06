@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { setLanguage } from '../../features/i18n/i18nSlice'
+import { GlobeIcon } from '../icons'
 
 export function LanguageSwitcher() {
   const dispatch = useAppDispatch()
@@ -12,10 +13,11 @@ export function LanguageSwitcher() {
   return (
     <button
       onClick={toggle}
-      className="rounded-md border border-gray-300 px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      className="pressable flex h-9 items-center gap-1.5 rounded-full border border-line/70 bg-surface/50 px-2.5 text-sm font-semibold text-muted hover:border-brand/40 hover:text-ink"
       aria-label="Toggle language"
     >
-      {language === 'ar' ? 'EN' : 'ع'}
+      <GlobeIcon className="h-4 w-4" />
+      <span className="font-mono text-xs">{language === 'ar' ? 'EN' : 'ع'}</span>
     </button>
   )
 }

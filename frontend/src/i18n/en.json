@@ -24,7 +24,20 @@
     "register": "Create account",
     "logout": "Sign out",
     "admin": "Admin",
-    "cart": "Cart"
+    "cart": "Quote list",
+    "search": "Search",
+    "menu": "Menu",
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode"
+  },
+  "palette": {
+    "placeholder": "Search products, CAS, application, safety rating…",
+    "products": "Products",
+    "categories": "Categories",
+    "actions": "Actions",
+    "empty": "No matching results",
+    "navigate": "to navigate",
+    "open": "to open"
   },
   "auth": {
     "email": "Email",
@@ -45,12 +58,14 @@
   },
   "catalog": {
     "title": "Products",
-    "searchPlaceholder": "Search products...",
+    "subtitle": "Factory-grade cleaning chemicals, clinically organized.",
+    "searchPlaceholder": "Search by name, brand, SKU or CAS number…",
     "allCategories": "All categories",
     "sku": "SKU",
     "brand": "Brand",
     "unit": "Unit",
     "addToCart": "Add to cart",
+    "addToQuote": "Add to quote",
     "viewDetails": "View details",
     "noProducts": "No products found"
   },
@@ -64,40 +79,121 @@
     "version": "Version",
     "issuedAt": "Issued",
     "language": "Language",
-    "severity": "Severity"
+    "severity": "Severity",
+    "copySpecs": "Copy specs",
+    "specsCopied": "Specifications copied",
+    "copyFailed": "Could not copy specifications",
+    "packaging": "Packaging"
   },
   "severity": {
     "info": "Info",
     "warning": "Warning",
     "danger": "Danger"
   },
+  "badge": {
+    "ph": "pH",
+    "dilution": "Dilution",
+    "eco": "Eco",
+    "safety": "Safety"
+  },
+  "chemical": {
+    "acidic": "Acidic",
+    "alkaline": "Alkaline",
+    "neutral": "Neutral",
+    "enzymatic": "Enzymatic"
+  },
+  "surface": {
+    "floors": "Floors",
+    "kitchen": "Kitchen",
+    "bathroom": "Bathroom",
+    "metal": "Metal",
+    "glass": "Glass",
+    "fabric": "Fabric",
+    "machinery": "Machinery",
+    "skin": "Skin"
+  },
+  "eco": {
+    "euEcolabel": "EU Ecolabel",
+    "biodegradable": "Biodegradable",
+    "en1276": "EN 1276",
+    "foodSafe": "Food-safe",
+    "lowVoc": "Low-VOC",
+    "vegan": "Vegan"
+  },
+  "application": {
+    "detergent": "Detergent",
+    "sanitizer": "Sanitizer",
+    "degreaser": "Industrial Degreaser",
+    "soap": "Soap",
+    "cleaner": "Cleaner"
+  },
+  "intensity": {
+    "light": "Light",
+    "standard": "Standard",
+    "heavy": "Heavy duty"
+  },
+  "filters": {
+    "title": "Filters",
+    "category": "Category",
+    "chemicalType": "Chemical type",
+    "surface": "Surface application",
+    "packaging": "Packaging size",
+    "clear": "Clear all",
+    "apply": "Apply"
+  },
+  "calculator": {
+    "title": "Dilution & dosage calculator",
+    "surface": "Surface type",
+    "intensity": "Cleaning intensity",
+    "waterLiters": "Water volume (L)",
+    "ratio": "Product : Water",
+    "product": "Product needed",
+    "water": "Water",
+    "disclaimer": "Indicative guidance only. Always follow the product label and Safety Data Sheet for exact dosing."
+  },
   "compliance": {
     "title": "Compliance & Safety",
     "subtitle": "Safety data sheets and safe handling information",
+    "eyebrow": "Certified & documented",
     "disclaimerTitle": "Important disclaimer",
     "disclaimer": "Always read the Safety Data Sheet (SDS) and the product label before use. Follow the manufacturer's instructions and all local regulations. In an emergency, contact your local emergency services.",
     "sdsTitle": "Safety Data Sheets",
     "sdsText": "Each product page lists its SDS documents for download, in both Arabic and English.",
     "safetyTitle": "Safety warnings",
-    "safetyText": "Safety warnings are shown on each product page by severity."
+    "safetyText": "Safety warnings are shown on each product page by severity.",
+    "ecoTile": "Eco certifications",
+    "ecoText": "Products carry clear eco-certification and biodegradability markers."
   },
   "quote": {
     "title": "Request a Quote",
     "subtitle": "For bulk and B2B orders",
+    "b2b": "B2B & bulk",
     "contactName": "Contact name",
     "contactEmail": "Contact email",
     "contactPhone": "Phone",
     "companyName": "Company name",
     "notes": "What do you need?",
     "submit": "Send request",
-    "success": "Quote request sent. We will contact you shortly."
+    "success": "Quote request sent. We will contact you shortly.",
+    "failed": "Could not send your request. Please try again.",
+    "items": "Requested items",
+    "list": "Your quote list"
   },
   "cart": {
-    "title": "Cart",
-    "empty": "Your cart is empty",
+    "title": "Quote list",
+    "empty": "Your quote list is empty",
     "total": "Total",
     "remove": "Remove",
-    "qty": "Qty"
+    "qty": "Qty",
+    "itemsCount": "items",
+    "copied": "Specifications copied",
+    "copyFailed": "Could not copy specifications",
+    "browse": "Browse products",
+    "added": "Added to quote list",
+    "requestQuote": "Request a quote",
+    "copySpecs": "Copy specs",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity"
   },
   "admin": {
     "title": "Admin",
@@ -114,6 +210,7 @@
     "categoryId": "Category ID",
     "brand": "Brand",
     "unit": "Unit",
+    "kind": "Kind",
     "isActive": "Active",
     "create": "Create",
     "update": "Update",
@@ -122,6 +219,7 @@
     "issuedAt": "Issue date",
     "revisionNotes": "Revision notes",
     "file": "SDS file (PDF)",
+    "chooseFile": "Choose a PDF file",
     "upload": "Upload",
     "assignPricing": "Assign price list",
     "priceListId": "Price list ID",
@@ -139,9 +237,32 @@
     "manageUsers": "List users and assign price lists",
     "uploadSds": "Upload safety data sheets"
   },
+  "home": {
+    "eyebrow": "Industrial + household cleaning",
+    "title1": "Factory-grade cleaning,",
+    "titleAccent": "clinically refined.",
+    "subtitle": "A premium catalog of industrial and household cleaning chemicals — pure, safe, eco-aware and organized to the millilitre.",
+    "browse": "Browse products",
+    "sdsGuarantee": "SDS for every product",
+    "eco": "Eco-certified range",
+    "labTested": "Lab-tested formulas",
+    "featured": "Featured product",
+    "inspect": "Inspect product",
+    "bentoTitle": "The essentials, at a glance",
+    "viewAll": "View all",
+    "categories": "Categories",
+    "complianceCard": "Compliance & safety",
+    "complianceHint": "SDS sheets and safe-handling guidance.",
+    "calculatorCard": "Dilution calculator",
+    "calculatorHint": "Exact product-to-water ratios per surface.",
+    "ecoStat": "Eco-aware, biodegradable formulations.",
+    "quoteCta": "Need a bulk quote?",
+    "quoteCtaHint": "B2B pricing and fast turnaround for large orders."
+  },
   "footer": {
     "tagline": "Factory-grade cleaning materials, delivered.",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "clinical": "Clinical-grade · Eco-aware · Certified"
   },
   "wojak": {
     "name": "Wojak",

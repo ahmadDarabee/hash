@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
 import { Input } from '../../components/ui/Input'
+import { Select } from '../../components/ui/Select'
 import { Spinner } from '../../components/ui/Spinner'
 import {
   adminCreateProduct,
@@ -85,14 +86,14 @@ export default function AdminProductsPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{t('admin.products')}</h1>
+        <h1 className="text-2xl font-bold text-ink">{t('admin.products')}</h1>
         <Button variant="secondary" onClick={() => setShowForm((value) => !value)}>
           {showForm ? t('common.cancel') : t('admin.newProduct')}
         </Button>
       </div>
 
       {showForm && (
-        <Card className="mt-4">
+        <Card glass className="mt-4">
           <form onSubmit={onCreate} className="grid gap-3 sm:grid-cols-2">
             <Input label={t('admin.sku')} value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} required />
             <Input label={t('admin.brand')} value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} required />
@@ -102,14 +103,14 @@ export default function AdminProductsPage() {
             <Input label={t('admin.descriptionAr')} value={form.description_ar} onChange={(e) => setForm({ ...form, description_ar: e.target.value })} />
             <Input label={t('admin.categoryId')} type="number" value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })} required />
             <Input label={t('admin.unit')} value={form.unit} onChange={(e) => setForm({ ...form, unit: e.target.value })} required />
-            <select
+            <Select
+              label={t('admin.kind')}
               value={form.kind}
               onChange={(e) => setForm({ ...form, kind: e.target.value })}
-              className="rounded-md border border-gray-300 px-3 py-2 text-sm"
             >
               <option value="finished">finished</option>
               <option value="raw">raw</option>
-            </select>
+            </Select>
             <Button type="submit" className="sm:col-span-2">
               {t('admin.create')}
             </Button>
@@ -122,14 +123,19 @@ export default function AdminProductsPage() {
       <div className="mt-6 space-y-3">
         {products.map((product) =>
           editing?.id === product.id ? (
-            <Card key={product.id}>
+            <Card key={product.id} glass>
               <form onSubmit={onUpdate} className="grid gap-3 sm:grid-cols-2">
                 <Input label={t('admin.nameEn')} value={editing.name_en} onChange={(e) => updateEditing({ name_en: e.target.value })} />
                 <Input label={t('admin.nameAr')} value={editing.name_ar} onChange={(e) => updateEditing({ name_ar: e.target.value })} />
                 <Input label={t('admin.brand')} value={editing.brand} onChange={(e) => updateEditing({ brand: e.target.value })} />
                 <Input label={t('admin.unit')} value={editing.unit} onChange={(e) => updateEditing({ unit: e.target.value })} />
-                <label className="flex items-center gap-2 text-sm text-gray-700">
-                  <input type="checkbox" checked={editing.is_active} onChange={(e) => updateEditing({ is_active: e.target.checked })} />
+                <label className="flex items-center gap-2 text-sm text-ink">
+                  <input
+                    type="checkbox"
+                    checked={editing.is_active}
+                    onChange={(e) => updateEditing({ is_active: e.target.checked })}
+                    className="h-4 w-4 rounded border-line text-brand focus:ring-brand/30"
+                  />
                   {t('admin.isActive')}
                 </label>
                 <div className="flex gap-2 sm:col-span-2">
@@ -141,10 +147,10 @@ export default function AdminProductsPage() {
               </form>
             </Card>
           ) : (
-            <Card key={product.id} className="flex items-center justify-between gap-3">
+            <Card key={product.id} glass className="flex items-center justify-between gap-3">
               <div>
-                <p className="font-semibold">{lang === 'ar' ? product.name_ar : product.name_en}</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-semibold text-ink">{lang === 'ar' ? product.name_ar : product.name_en}</p>
+                <p className="text-sm text-muted">
                   {product.sku} · {product.brand} · {product.is_active ? t('admin.isActive') : '-'}
                 </p>
               </div>
