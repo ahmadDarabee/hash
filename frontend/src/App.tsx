@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import Footer from './components/layout/Footer'
 import Header from './components/layout/Header'
-import Wojak from './components/wojak/Wojak'
 import { fetchMe } from './features/auth/authThunks'
 import { changeLanguage } from './i18n'
 import AdminLayout from './pages/admin/AdminLayout'
@@ -17,7 +16,6 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ProductsPage from './pages/ProductsPage'
-import QuotePage from './pages/QuotePage'
 import RegisterPage from './pages/RegisterPage'
 import { getAccessToken } from './services/api'
 
@@ -44,7 +42,6 @@ export default function App() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetailPage />} />
           <Route path="/compliance" element={<CompliancePage />} />
-          <Route path="/quote" element={<QuotePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminLayout />}>
@@ -56,7 +53,6 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-      <Wojak />
     </div>
   )
 }
