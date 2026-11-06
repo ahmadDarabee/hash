@@ -1,6 +1,5 @@
 """Order tracking provider port (future)."""
 
-import uuid
 from typing import Protocol
 
 

@@ -1,6 +1,5 @@
 """Record an inventory movement and update on-hand quantity atomically."""
 
-import uuid
 from decimal import Decimal
 
 from application.ports.repositories import InventoryRepository
@@ -17,11 +16,11 @@ class RecordInventoryMovement:
     async def execute(
         self,
         *,
-        inventory_item_id: uuid.UUID,
+        inventory_item_id: int,
         movement_type: InventoryMovementType,
         qty: Decimal,
         reason: str | None = None,
-        ref_id: uuid.UUID | None = None,
+        ref_id: int | None = None,
     ) -> InventoryMovement:
         item = await self._inventory.get_item(inventory_item_id)
         if item is None:

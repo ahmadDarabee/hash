@@ -1,6 +1,5 @@
 """Product repository (raw SQL)."""
 
-import uuid
 from typing import Any, Mapping
 
 import asyncpg
@@ -82,7 +81,7 @@ class ProductRepository(BaseRepository):
         )
         return [_product_from_row(r) for r in rows], int(total)
 
-    async def get_by_id(self, product_id: uuid.UUID) -> Product | None:
+    async def get_by_id(self, product_id: int) -> Product | None:
         row = await self._pool.fetchrow(
             f"SELECT {_COLUMNS} FROM product WHERE id = $1 AND deleted_at IS NULL",
             product_id,
@@ -121,7 +120,7 @@ class ProductRepository(BaseRepository):
         )
         return _product_from_row(row)
 
-    async def update(self, product_id: uuid.UUID, changes: Mapping[str, Any]) -> Product | None:
+    async def update(self, product_id: int, changes: Mapping[str, Any]) -> Product | None:
         fields = {k: v for k, v in changes.items() if k in _ALLOWED_COLUMNS}
         if not fields:
             return await self.get_by_id(product_id)

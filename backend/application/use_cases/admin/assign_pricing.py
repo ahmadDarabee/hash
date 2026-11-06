@@ -1,6 +1,5 @@
 """Admin: assign a price list to a B2B customer."""
 
-import uuid
 
 from application.ports.repositories import PricingRepository, UserRepository
 from domain.enums import CustomerType
@@ -12,7 +11,7 @@ class AdminAssignPricing:
         self._users = users
         self._pricing = pricing
 
-    async def execute(self, user_id: uuid.UUID, price_list_id: uuid.UUID) -> None:
+    async def execute(self, user_id: int, price_list_id: int) -> None:
         user = await self._users.get_by_id(user_id)
         if user is None:
             raise NotFoundError("User not found")

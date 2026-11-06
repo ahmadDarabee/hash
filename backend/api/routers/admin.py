@@ -1,7 +1,6 @@
 """Admin endpoints (v1 minimal)."""
 
 import datetime as dt
-import uuid
 
 from fastapi import APIRouter, Depends, File, Form, Query, Response, UploadFile
 
@@ -65,7 +64,7 @@ async def create_product(
 
 @router.put("/products/{product_id}", response_model=ProductResponse)
 async def update_product(
-    product_id: uuid.UUID,
+    product_id: int,
     body: ProductUpdate,
     use_case=Depends(get_admin_update_product),
 ) -> ProductResponse:
@@ -76,7 +75,7 @@ async def update_product(
 @router.post("/sds", response_model=SdsResponse, status_code=201)
 async def create_sds(
     file: UploadFile = File(...),
-    product_id: uuid.UUID = Form(...),
+    product_id: int = Form(...),
     language: Language = Form(...),
     version: str = Form(...),
     issued_at: dt.date = Form(...),
@@ -114,7 +113,7 @@ async def list_users(
 
 @router.put("/users/{user_id}/pricing", status_code=204)
 async def assign_pricing(
-    user_id: uuid.UUID,
+    user_id: int,
     body: AssignPricingRequest,
     use_case=Depends(get_admin_assign_pricing),
 ) -> Response:

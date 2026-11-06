@@ -1,6 +1,5 @@
 """Admin request schemas."""
 
-import uuid
 
 from pydantic import BaseModel
 
@@ -31,4 +30,4 @@ class ProductUpdate(BaseModel):
 
 
 class AssignPricingRequest(BaseModel):
-    price_list_id: uuid.UUID
+    price_list_id: int

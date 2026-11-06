@@ -1,7 +1,6 @@
 """Auth request/response schemas."""
 
 import datetime as dt
-import uuid
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
@@ -38,7 +37,7 @@ class TokenResponse(BaseModel):
 class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: uuid.UUID
+    id: int
     email: str
     role: Role
     customer_type: CustomerType

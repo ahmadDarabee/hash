@@ -1,7 +1,6 @@
 """Admin: upload an SDS file and record its metadata."""
 
 import datetime as dt
-import uuid
 
 from application.ports.repositories import ComplianceRepository, ProductRepository
 from application.ports.storage import StorageAdapter
@@ -24,7 +23,7 @@ class AdminCreateSds:
     async def execute(
         self,
         *,
-        product_id: uuid.UUID,
+        product_id: int,
         language: Language,
         version: str,
         issued_at: dt.date,

@@ -1,6 +1,5 @@
 """Pricing repository (raw SQL)."""
 
-import uuid
 from decimal import Decimal
 
 import asyncpg
@@ -40,14 +39,14 @@ class PricingRepository(BaseRepository):
         )
         return _price_list_from_row(row) if row else None
 
-    async def get_by_customer(self, customer_id: uuid.UUID) -> PriceList | None:
+    async def get_by_customer(self, customer_id: int) -> PriceList | None:
         row = await self._pool.fetchrow(
             f"SELECT {_LIST_COLUMNS} FROM price_list WHERE customer_id = $1 LIMIT 1",
             customer_id,
         )
         return _price_list_from_row(row) if row else None
 
-    async def get_by_id(self, price_list_id: uuid.UUID) -> PriceList | None:
+    async def get_by_id(self, price_list_id: int) -> PriceList | None:
         row = await self._pool.fetchrow(
             f"SELECT {_LIST_COLUMNS} FROM price_list WHERE id = $1",
             price_list_id,
@@ -60,7 +59,7 @@ class PricingRepository(BaseRepository):
         )
         return [_price_list_from_row(r) for r in rows]
 
-    async def get_items(self, price_list_id: uuid.UUID) -> list[PriceListItem]:
+    async def get_items(self, price_list_id: int) -> list[PriceListItem]:
         rows = await self._pool.fetch(
             "SELECT id, price_list_id, product_id, price, currency, min_qty, discount_pct "
             "FROM price_list_item WHERE price_list_id = $1 ORDER BY min_qty",
@@ -68,7 +67,7 @@ class PricingRepository(BaseRepository):
         )
         return [_item_from_row(r) for r in rows]
 
-    async def assign_to_customer(self, price_list_id: uuid.UUID, customer_id: uuid.UUID) -> None:
+    async def assign_to_customer(self, price_list_id: int, customer_id: int) -> None:
         price_list = await self.get_by_id(price_list_id)
         if price_list is None:
             raise NotFoundError("Price list not found")

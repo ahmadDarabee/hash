@@ -1,7 +1,6 @@
 """Catalog response schemas."""
 
 import datetime as dt
-import uuid
 
 from pydantic import BaseModel, ConfigDict
 
@@ -11,7 +10,7 @@ from domain.enums import Language, ProductKind, WarningSeverity
 class ProductResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: uuid.UUID
+    id: int
     sku: str
     name_en: str
     name_ar: str
@@ -27,8 +26,8 @@ class ProductResponse(BaseModel):
 class SdsResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    product_id: int
     language: Language
     version: str
     file_url: str
@@ -39,8 +38,8 @@ class SdsResponse(BaseModel):
 class WarningResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    product_id: int
     language: Language
     severity: WarningSeverity
     text: str

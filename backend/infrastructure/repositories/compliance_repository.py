@@ -1,7 +1,6 @@
 """Compliance repository: SDS documents and safety warnings (raw SQL)."""
 
 import datetime as dt
-import uuid
 
 import asyncpg
 
@@ -33,7 +32,7 @@ def _warning_from_row(row: asyncpg.Record) -> SafetyWarning:
 
 
 class ComplianceRepository(BaseRepository):
-    async def list_sds(self, product_id: uuid.UUID) -> list[SdsDocument]:
+    async def list_sds(self, product_id: int) -> list[SdsDocument]:
         rows = await self._pool.fetch(
             "SELECT id, product_id, language, version, file_url, issued_at, revision_notes "
             "FROM sds_document WHERE product_id = $1 ORDER BY issued_at DESC, version DESC",
@@ -41,7 +40,7 @@ class ComplianceRepository(BaseRepository):
         )
         return [_sds_from_row(r) for r in rows]
 
-    async def list_warnings(self, product_id: uuid.UUID) -> list[SafetyWarning]:
+    async def list_warnings(self, product_id: int) -> list[SafetyWarning]:
         rows = await self._pool.fetch(
             "SELECT id, product_id, language, severity, text "
             "FROM safety_warning WHERE product_id = $1 "
@@ -53,7 +52,7 @@ class ComplianceRepository(BaseRepository):
     async def create_sds(
         self,
         *,
-        product_id: uuid.UUID,
+        product_id: int,
         language: Language,
         version: str,
         file_url: str,
@@ -76,7 +75,7 @@ class ComplianceRepository(BaseRepository):
     async def create_warning(
         self,
         *,
-        product_id: uuid.UUID,
+        product_id: int,
         language: Language,
         severity: WarningSeverity,
         text: str,

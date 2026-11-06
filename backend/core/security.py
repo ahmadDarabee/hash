@@ -9,7 +9,6 @@ string stored only as a SHA-256 hash in the DB, rotated on every refresh.
 import datetime as dt
 import hashlib
 import secrets
-import uuid
 
 import argon2
 import jwt
@@ -37,7 +36,7 @@ def _now_utc() -> dt.datetime:
     return dt.datetime.now(dt.timezone.utc)
 
 
-def create_access_token(user_id: uuid.UUID, role: str) -> str:
+def create_access_token(user_id: int, role: str) -> str:
     settings = get_settings()
     now = _now_utc()
     payload = {

@@ -1,6 +1,5 @@
 """FastAPI dependency injection: repositories, use cases, providers, auth guards."""
 
-import uuid
 
 import asyncpg
 from fastapi import Depends, Request
@@ -215,7 +214,7 @@ async def get_current_user(
         raise AuthenticationError("Missing authentication credentials", "missing_token")
 
     payload = decode_access_token(credentials.credentials)
-    user = await users.get_by_id(uuid.UUID(payload["sub"]))
+    user = await users.get_by_id(int(payload["sub"]))
     if user is None or not user.is_active:
         raise AuthenticationError("Invalid or inactive user", "token_invalid")
     return user
@@ -231,7 +230,7 @@ async def get_optional_user(
         payload = decode_access_token(credentials.credentials)
     except AuthenticationError:
         return None
-    return await users.get_by_id(uuid.UUID(payload["sub"]))
+    return await users.get_by_id(int(payload["sub"]))
 
 
 def require_role(*roles: str):

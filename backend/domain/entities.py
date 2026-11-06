@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import datetime as dt
-import uuid
 from dataclasses import dataclass
 from decimal import Decimal
 
@@ -22,7 +21,7 @@ from domain.value_objects import Money
 
 @dataclass(frozen=True, slots=True)
 class User:
-    id: uuid.UUID
+    id: int
     email: str
     password_hash: str
     role: Role
@@ -44,7 +43,7 @@ class Category:
 
 @dataclass(frozen=True, slots=True)
 class Product:
-    id: uuid.UUID
+    id: int
     sku: str
     name_en: str
     name_ar: str
@@ -59,8 +58,8 @@ class Product:
 
 @dataclass(frozen=True, slots=True)
 class ProductVariant:
-    id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    product_id: int
     size: Decimal
     unit: str
     packaging: str
@@ -68,17 +67,17 @@ class ProductVariant:
 
 @dataclass(frozen=True, slots=True)
 class PriceList:
-    id: uuid.UUID
+    id: int
     name: str
-    customer_id: uuid.UUID | None = None
+    customer_id: int | None = None
     is_default: bool = False
 
 
 @dataclass(frozen=True, slots=True)
 class PriceListItem:
-    id: uuid.UUID
-    price_list_id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    price_list_id: int
+    product_id: int
     price: Money
     min_qty: Decimal
     discount_pct: Decimal
@@ -86,8 +85,8 @@ class PriceListItem:
 
 @dataclass(frozen=True, slots=True)
 class InventoryItem:
-    id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    product_id: int
     location: str
     qty_on_hand: Decimal
     qty_reserved: Decimal
@@ -96,19 +95,19 @@ class InventoryItem:
 
 @dataclass(frozen=True, slots=True)
 class InventoryMovement:
-    id: uuid.UUID
-    inventory_item_id: uuid.UUID
+    id: int
+    inventory_item_id: int
     type: InventoryMovementType
     qty: Decimal
     reason: str | None
-    ref_id: uuid.UUID | None
+    ref_id: int | None
     created_at: dt.datetime
 
 
 @dataclass(frozen=True, slots=True)
 class SdsDocument:
-    id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    product_id: int
     language: Language
     version: str
     file_url: str
@@ -118,8 +117,8 @@ class SdsDocument:
 
 @dataclass(frozen=True, slots=True)
 class SafetyWarning:
-    id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    product_id: int
     language: Language
     severity: WarningSeverity
     text: str
@@ -127,8 +126,8 @@ class SafetyWarning:
 
 @dataclass(frozen=True, slots=True)
 class Order:
-    id: uuid.UUID
-    user_id: uuid.UUID
+    id: int
+    user_id: int
     status: OrderStatus
     total: Money
     created_at: dt.datetime | None = None
@@ -136,9 +135,9 @@ class Order:
 
 @dataclass(frozen=True, slots=True)
 class OrderItem:
-    id: uuid.UUID
-    order_id: uuid.UUID
-    product_id: uuid.UUID
+    id: int
+    order_id: int
+    product_id: int
     qty: Decimal
     unit_price: Money
     line_total: Money
@@ -146,12 +145,12 @@ class OrderItem:
 
 @dataclass(frozen=True, slots=True)
 class QuoteRequest:
-    id: uuid.UUID
+    id: int
     contact_name: str
     contact_email: str
     status: QuoteStatus
     contact_phone: str | None = None
     company_name: str | None = None
     notes: str | None = None
-    user_id: uuid.UUID | None = None
+    user_id: int | None = None
     created_at: dt.datetime | None = None

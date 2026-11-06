@@ -1,13 +1,12 @@
 """Pricing response schemas."""
 
-import uuid
 from decimal import Decimal
 
 from pydantic import BaseModel
 
 
 class PriceListItemResponse(BaseModel):
-    product_id: uuid.UUID
+    product_id: int
     price: Decimal
     currency: str
     min_qty: Decimal
@@ -15,7 +14,7 @@ class PriceListItemResponse(BaseModel):
 
 
 class PricingResponse(BaseModel):
-    price_list_id: uuid.UUID
+    price_list_id: int
     name: str
     is_default: bool
     items: list[PriceListItemResponse]

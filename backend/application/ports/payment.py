@@ -1,13 +1,12 @@
 """Payment provider port (future). Wire a real gateway later via DI."""
 
-import uuid
 from typing import Protocol
 
 from domain.value_objects import Money
 
 
 class PaymentProvider(Protocol):
-    async def charge(self, order_id: uuid.UUID, amount: Money) -> str:
+    async def charge(self, order_id: int, amount: Money) -> str:
         """Authorize a charge and return a gateway payment id."""
         ...
 

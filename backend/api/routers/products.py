@@ -1,6 +1,5 @@
 """Public catalog endpoints."""
 
-import uuid
 
 from fastapi import APIRouter, Depends, Query
 
@@ -39,19 +38,19 @@ async def list_products(
 
 
 @router.get("/{product_id}", response_model=ProductResponse)
-async def get_product(product_id: uuid.UUID, use_case=Depends(get_product)) -> ProductResponse:
+async def get_product(product_id: int, use_case=Depends(get_product)) -> ProductResponse:
     return ProductResponse.model_validate(await use_case.execute(product_id))
 
 
 @router.get("/{product_id}/sds", response_model=list[SdsResponse])
 async def get_product_sds(
-    product_id: uuid.UUID, use_case=Depends(get_product_sds)
+    product_id: int, use_case=Depends(get_product_sds)
 ) -> list[SdsResponse]:
     return [SdsResponse.model_validate(s) for s in await use_case.execute(product_id)]
 
 
 @router.get("/{product_id}/warnings", response_model=list[WarningResponse])
 async def get_product_warnings(
-    product_id: uuid.UUID, use_case=Depends(get_product_warnings)
+    product_id: int, use_case=Depends(get_product_warnings)
 ) -> list[WarningResponse]:
     return [WarningResponse.model_validate(w) for w in await use_case.execute(product_id)]

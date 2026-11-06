@@ -1,6 +1,5 @@
 """Inventory repository (raw SQL). Movements are append-only."""
 
-import uuid
 from decimal import Decimal
 
 import asyncpg
@@ -37,16 +36,16 @@ def _movement_from_row(row: asyncpg.Record) -> InventoryMovement:
 
 
 class InventoryRepository(BaseRepository):
-    async def list_items(self, product_id: uuid.UUID) -> list[InventoryItem]:
+    async def list_items(self, product_id: int) -> list[InventoryItem]:
         rows = await self._pool.fetch(
             f"SELECT {_ITEM_COLUMNS} FROM inventory_item WHERE product_id = $1 ORDER BY location",
             product_id,
         )
         return [_item_from_row(r) for r in rows]
 
-    async def get_item(self, inventory_item_id: uuid.UUID) -> InventoryItem | None:
+    async def get_item(self, inventory_item_id: int) -> InventoryItem | None:
         row = await self._pool.fetchrow(
-            f"SELECT {_ITEM_COLUMNS} FROM inventory_items WHERE id = $1",
+            f"SELECT {_ITEM_COLUMNS} FROM inventory_item WHERE id = $1",
             inventory_item_id,
         )
         return _item_from_row(row) if row else None
@@ -54,12 +53,12 @@ class InventoryRepository(BaseRepository):
     async def record_movement(
         self,
         *,
-        inventory_item_id: uuid.UUID,
+        inventory_item_id: int,
         type_: InventoryMovementType,
         qty: Decimal,
         new_qty_on_hand: Decimal,
         reason: str | None,
-        ref_id: uuid.UUID | None,
+        ref_id: int | None,
     ) -> InventoryMovement:
         async with self._pool.acquire() as conn:
             async with conn.transaction():
