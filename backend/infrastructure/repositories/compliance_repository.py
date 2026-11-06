@@ -36,7 +36,7 @@ class ComplianceRepository(BaseRepository):
     async def list_sds(self, product_id: uuid.UUID) -> list[SdsDocument]:
         rows = await self._pool.fetch(
             "SELECT id, product_id, language, version, file_url, issued_at, revision_notes "
-            "FROM sds_documents WHERE product_id = $1 ORDER BY issued_at DESC, version DESC",
+            "FROM sds_document WHERE product_id = $1 ORDER BY issued_at DESC, version DESC",
             product_id,
         )
         return [_sds_from_row(r) for r in rows]
@@ -44,7 +44,7 @@ class ComplianceRepository(BaseRepository):
     async def list_warnings(self, product_id: uuid.UUID) -> list[SafetyWarning]:
         rows = await self._pool.fetch(
             "SELECT id, product_id, language, severity, text "
-            "FROM safety_warnings WHERE product_id = $1 "
+            "FROM safety_warning WHERE product_id = $1 "
             "ORDER BY CASE severity WHEN 'danger' THEN 0 WHEN 'warning' THEN 1 ELSE 2 END, created_at",
             product_id,
         )
@@ -61,7 +61,7 @@ class ComplianceRepository(BaseRepository):
         revision_notes: str | None,
     ) -> SdsDocument:
         row = await self._pool.fetchrow(
-            "INSERT INTO sds_documents (product_id, language, version, file_url, issued_at, revision_notes) "
+            "INSERT INTO sds_document (product_id, language, version, file_url, issued_at, revision_notes) "
             "VALUES ($1, $2, $3, $4, $5, $6) "
             "RETURNING id, product_id, language, version, file_url, issued_at, revision_notes",
             product_id,
@@ -82,7 +82,7 @@ class ComplianceRepository(BaseRepository):
         text: str,
     ) -> SafetyWarning:
         row = await self._pool.fetchrow(
-            "INSERT INTO safety_warnings (product_id, language, severity, text) "
+            "INSERT INTO safety_warning (product_id, language, severity, text) "
             "VALUES ($1, $2, $3, $4) RETURNING id, product_id, language, severity, text",
             product_id,
             language.value,

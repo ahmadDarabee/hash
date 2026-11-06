@@ -39,7 +39,7 @@ def _movement_from_row(row: asyncpg.Record) -> InventoryMovement:
 class InventoryRepository(BaseRepository):
     async def list_items(self, product_id: uuid.UUID) -> list[InventoryItem]:
         rows = await self._pool.fetch(
-            f"SELECT {_ITEM_COLUMNS} FROM inventory_items WHERE product_id = $1 ORDER BY location",
+            f"SELECT {_ITEM_COLUMNS} FROM inventory_item WHERE product_id = $1 ORDER BY location",
             product_id,
         )
         return [_item_from_row(r) for r in rows]
@@ -64,12 +64,12 @@ class InventoryRepository(BaseRepository):
         async with self._pool.acquire() as conn:
             async with conn.transaction():
                 await conn.execute(
-                    "UPDATE inventory_items SET qty_on_hand = $1, updated_at = NOW() WHERE id = $2",
+                    "UPDATE inventory_item SET qty_on_hand = $1, updated_at = NOW() WHERE id = $2",
                     new_qty_on_hand,
                     inventory_item_id,
                 )
                 row = await conn.fetchrow(
-                    "INSERT INTO inventory_movements (inventory_item_id, type, qty, reason, ref_id) "
+                    "INSERT INTO inventory_movement (inventory_item_id, type, qty, reason, ref_id) "
                     "VALUES ($1, $2, $3, $4, $5) "
                     f"RETURNING {_MOVEMENT_COLUMNS}",
                     inventory_item_id,

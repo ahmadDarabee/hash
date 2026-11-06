@@ -12,7 +12,7 @@ _COLUMNS = (
     "u.id, u.email, u.password_hash, r.name AS role, u.customer_type, "
     "u.company_name, u.preferred_language, u.is_active, u.created_at"
 )
-_FROM = "FROM users u JOIN roles r ON r.id = u.role_id"
+_FROM = "FROM acl_user u JOIN acl_role r ON r.id = u.role_id"
 
 
 def _user_from_row(row: asyncpg.Record) -> User:
@@ -57,13 +57,13 @@ class UserRepository(BaseRepository):
         row = await self._pool.fetchrow(
             f"""
             WITH inserted AS (
-                INSERT INTO users (email, password_hash, role_id, customer_type, company_name, preferred_language)
-                VALUES ($1, $2, (SELECT id FROM roles WHERE name = $3), $4, $5, $6)
+                INSERT INTO acl_user (email, password_hash, role_id, customer_type, company_name, preferred_language)
+                VALUES ($1, $2, (SELECT id FROM acl_role WHERE name = $3), $4, $5, $6)
                 RETURNING *
             )
             SELECT i.id, i.email, i.password_hash, r.name AS role, i.customer_type,
                    i.company_name, i.preferred_language, i.is_active, i.created_at
-            FROM inserted i JOIN roles r ON r.id = i.role_id
+            FROM inserted i JOIN acl_role r ON r.id = i.role_id
             """,
             email,
             password_hash,

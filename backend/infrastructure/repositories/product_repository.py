@@ -66,7 +66,7 @@ class ProductRepository(BaseRepository):
         )
 
         rows = await self._pool.fetch(
-            f"SELECT {_COLUMNS} FROM products WHERE {where} "
+            f"SELECT {_COLUMNS} FROM product WHERE {where} "
             "ORDER BY created_at DESC LIMIT $4 OFFSET $5",
             include_inactive,
             category_id,
@@ -75,7 +75,7 @@ class ProductRepository(BaseRepository):
             offset,
         )
         total = await self._pool.fetchval(
-            f"SELECT COUNT(*) FROM products WHERE {where}",
+            f"SELECT COUNT(*) FROM product WHERE {where}",
             include_inactive,
             category_id,
             like,
@@ -84,7 +84,7 @@ class ProductRepository(BaseRepository):
 
     async def get_by_id(self, product_id: uuid.UUID) -> Product | None:
         row = await self._pool.fetchrow(
-            f"SELECT {_COLUMNS} FROM products WHERE id = $1 AND deleted_at IS NULL",
+            f"SELECT {_COLUMNS} FROM product WHERE id = $1 AND deleted_at IS NULL",
             product_id,
         )
         return _product_from_row(row) if row else None
@@ -104,7 +104,7 @@ class ProductRepository(BaseRepository):
     ) -> Product:
         row = await self._pool.fetchrow(
             f"""
-            INSERT INTO products
+            INSERT INTO product
                 (sku, name_en, name_ar, description_en, description_ar, category_id, brand, unit, kind)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING {_COLUMNS}
@@ -130,7 +130,7 @@ class ProductRepository(BaseRepository):
         assignments = ", ".join(f"{col} = ${i}" for i, col in enumerate(fields, start=1))
         values = list(fields.values())
         row = await self._pool.fetchrow(
-            f"UPDATE products SET {assignments}, updated_at = NOW() "
+            f"UPDATE product SET {assignments}, updated_at = NOW() "
             f"WHERE id = ${len(fields) + 1} AND deleted_at IS NULL "
             f"RETURNING {_COLUMNS}",
             *values,

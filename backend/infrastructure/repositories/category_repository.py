@@ -19,6 +19,6 @@ def _category_from_row(row: asyncpg.Record) -> Category:
 class CategoryRepository(BaseRepository):
     async def list(self) -> list[Category]:
         rows = await self._pool.fetch(
-            "SELECT id, slug, name_en, name_ar, parent_id FROM categories ORDER BY id"
+            "SELECT id, slug, name_en, name_ar, parent_id FROM category ORDER BY id"
         )
         return [_category_from_row(r) for r in rows]
