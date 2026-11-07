@@ -28,9 +28,6 @@ export default function Footer() {
             <Link to="/products" className="pressable inline-flex w-fit items-center gap-2 text-sm text-muted hover:text-ink">
               {t('nav.products')}
             </Link>
-            <Link to="/quote" className="pressable inline-flex w-fit items-center gap-2 text-sm text-muted hover:text-ink">
-              {t('nav.quote')}
-            </Link>
           </div>
         </div>
 

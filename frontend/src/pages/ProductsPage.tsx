@@ -6,8 +6,6 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
-import { useToast } from '../components/ui/Toast'
-import { addItem } from '../features/cart/cartSlice'
 import { fetchCategories, fetchProducts } from '../features/catalog/catalogThunks'
 import { useProductProfile } from '../features/catalog/useProductProfile'
 import {
@@ -23,7 +21,6 @@ import {
   DropletIcon,
   FlaskIcon,
   LeafIcon,
-  PlusIcon,
   SearchIcon,
   ShieldCheckIcon,
   SlidersIcon,
@@ -56,7 +53,6 @@ export default function ProductsPage() {
   const dispatch = useAppDispatch()
   const { products, categories, status } = useAppSelector((state) => state.catalog)
   const profileOf = useProductProfile()
-  const { toast } = useToast()
 
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
@@ -110,11 +106,6 @@ export default function ProductsPage() {
     setSurfaces([])
     setPackaging([])
     setCategoryId(undefined)
-  }
-
-  function addToQuote(product: (typeof products)[number]) {
-    dispatch(addItem(product))
-    toast(t('cart.added'))
   }
 
   const surfaceLabels: Record<SurfaceCode, string> = {
@@ -223,13 +214,9 @@ export default function ProductsPage() {
                   </div>
 
                   <div className="mt-5 flex items-center gap-2 pt-1">
-                    <Button variant="secondary" size="sm" onClick={() => addToQuote(product)}>
-                      <PlusIcon className="h-3.5 w-3.5" />
-                      {t('catalog.addToQuote')}
-                    </Button>
                     <Link
                       to={`/products/${product.id}`}
-                      className="pressable ms-auto inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-aqua-strong"
+                      className="pressable inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-aqua-strong"
                     >
                       {t('catalog.viewDetails')}
                     </Link>

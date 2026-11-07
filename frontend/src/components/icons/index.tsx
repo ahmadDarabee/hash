@@ -15,16 +15,6 @@ function base(className: string | undefined) {
   }
 }
 
-export function CartIcon({ className = 'h-5 w-5' }: IconProps) {
-  return (
-    <svg {...base(className)}>
-      <circle cx="9" cy="21" r="1" />
-      <circle cx="20" cy="21" r="1" />
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-    </svg>
-  )
-}
-
 export function DownloadIcon({ className = 'h-5 w-5' }: IconProps) {
   return (
     <svg {...base(className)}>
@@ -299,15 +289,6 @@ export function ClockIcon({ className = 'h-5 w-5' }: IconProps) {
     <svg {...base(className)}>
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
-    </svg>
-  )
-}
-
-export function QuoteIcon({ className = 'h-5 w-5' }: IconProps) {
-  return (
-    <svg {...base(className)}>
-      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
-      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
     </svg>
   )
 }

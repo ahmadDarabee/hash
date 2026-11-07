@@ -56,7 +56,6 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
       { id: 'action-home', group: 'actions', label: t('nav.home'), sublabel: '/', to: '/' },
       { id: 'action-products', group: 'actions', label: t('nav.products'), sublabel: '/products', to: '/products' },
       { id: 'action-compliance', group: 'actions', label: t('nav.compliance'), sublabel: '/compliance', to: '/compliance' },
-      { id: 'action-quote', group: 'actions', label: t('nav.quote'), sublabel: '/quote', to: '/quote' },
     ]
 
     const productItems: ResultItem[] = products.map((product) => {

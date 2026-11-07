@@ -13,7 +13,6 @@ import {
   LeafIcon,
   ShieldCheckIcon,
   SparklesIcon,
-  ZapIcon,
 } from '../components/icons'
 
 export default function HomePage() {
@@ -42,7 +41,7 @@ export default function HomePage() {
       ]
 
   const categoryAccents = ['from-brand/20 to-brand/5', 'from-lime/20 to-lime/5', 'from-amber/20 to-amber/5', 'from-brand/20 to-lime/5']
-  const categoryIcons = [SparklesIcon, ShieldCheckIcon, ZapIcon, DropletIcon]
+  const categoryIcons = [SparklesIcon, ShieldCheckIcon, FlaskIcon, DropletIcon]
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-4 pt-6 sm:px-5 sm:pt-10">
@@ -65,10 +64,10 @@ export default function HomePage() {
               <ArrowRightIcon className="h-4 w-4" />
             </Link>
             <Link
-              to="/quote"
+              to="/compliance"
               className="pressable glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink hover:shadow-float"
             >
-              {t('nav.quote')}
+              {t('nav.compliance')}
             </Link>
           </div>
 
@@ -167,20 +166,6 @@ export default function HomePage() {
             </div>
           </Link>
 
-          {/* Compliance */}
-          <Link
-            to="/compliance"
-            className="glass hover-lift group flex flex-col justify-between overflow-hidden rounded-3xl p-5"
-          >
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand/10 text-brand">
-              <ShieldCheckIcon className="h-6 w-6" />
-            </span>
-            <div className="mt-4">
-              <h3 className="font-semibold text-ink">{t('home.complianceCard')}</h3>
-              <p className="mt-1 text-xs leading-relaxed text-muted">{t('home.complianceHint')}</p>
-            </div>
-          </Link>
-
           {/* Calculator teaser */}
           <Link
             to="/products"
@@ -206,17 +191,17 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Quote CTA banner */}
+          {/* Compliance & safety banner */}
           <Link
-            to="/quote"
+            to="/compliance"
             className="glass hover-lift group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-brand/15 to-lime/10 p-5 sm:col-span-2"
           >
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/60 text-brand dark:bg-white/10">
-              <ZapIcon className="h-6 w-6" />
+              <ShieldCheckIcon className="h-6 w-6" />
             </span>
             <div className="mt-4">
-              <h3 className="text-lg font-bold text-ink">{t('home.quoteCta')}</h3>
-              <p className="mt-1 text-sm text-muted">{t('home.quoteCtaHint')}</p>
+              <h3 className="text-lg font-bold text-ink">{t('home.complianceCard')}</h3>
+              <p className="mt-1 text-sm text-muted">{t('home.complianceHint')}</p>
             </div>
           </Link>
         </div>

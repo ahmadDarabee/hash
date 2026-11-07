@@ -89,22 +89,6 @@ export interface AuthResponse {
   tokens: TokenPair
 }
 
-export interface QuotePayload {
-  contact_name: string
-  contact_email: string
-  contact_phone?: string
-  company_name?: string
-  notes?: string
-}
-
-export interface QuoteResponse {
-  id: string
-  contact_name: string
-  contact_email: string
-  status: string
-  created_at: string | null
-}
-
 export interface ChatReply {
   intent: string
   state: string

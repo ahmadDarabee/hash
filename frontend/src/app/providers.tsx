@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
-import { CartDrawerProvider } from '../components/cart/CartDrawer'
 import { CommandPaletteProvider } from '../components/ui/CommandPalette'
 import { ToastProvider } from '../components/ui/Toast'
 import { ThemeProvider } from '../theme'
@@ -12,9 +11,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <Provider store={store}>
       <ThemeProvider>
         <ToastProvider>
-          <CommandPaletteProvider>
-            <CartDrawerProvider>{children}</CartDrawerProvider>
-          </CommandPaletteProvider>
+          <CommandPaletteProvider>{children}</CommandPaletteProvider>
         </ToastProvider>
       </ThemeProvider>
     </Provider>

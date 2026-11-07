@@ -6,10 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { logout } from '../../features/auth/authThunks'
 import { useTheme } from '../../theme'
 import { useCommandPalette } from '../ui/CommandPalette'
-import { useCartDrawer } from '../cart/CartDrawer'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import {
-  CartIcon,
   CloseIcon,
   CommandIcon,
   DropletIcon,
@@ -23,17 +21,14 @@ export default function Header() {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.auth.user)
-  const cartCount = useAppSelector((state) => state.cart.items.reduce((sum, item) => sum + item.qty, 0))
   const { theme, toggle } = useTheme()
   const { open: openPalette } = useCommandPalette()
-  const { open: openCart } = useCartDrawer()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const links = [
     { to: '/', label: t('nav.home'), end: true },
     { to: '/products', label: t('nav.products') },
     { to: '/compliance', label: t('nav.compliance') },
-    { to: '/quote', label: t('nav.quote') },
   ]
 
   return (
@@ -131,20 +126,6 @@ export default function Header() {
             )}
           </div>
 
-          <button
-            onClick={openCart}
-            className="pressable relative flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-ink/5 hover:text-ink"
-            aria-label={t('nav.cart')}
-          >
-            <CartIcon className="h-[18px] w-[18px]" />
-            {cartCount > 0 && (
-              <span className="absolute -end-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-lime px-1 text-[10px] font-bold text-[#1a2e05]">
-                {cartCount}
-              </span>
-            )}
-          </button>
-
-          {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileOpen((value) => !value)}
             className="pressable flex h-9 w-9 items-center justify-center rounded-full text-muted hover:bg-ink/5 hover:text-ink lg:hidden"

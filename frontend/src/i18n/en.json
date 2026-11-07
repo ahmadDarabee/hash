@@ -19,12 +19,10 @@
     "home": "Home",
     "products": "Products",
     "compliance": "Compliance",
-    "quote": "Request a Quote",
     "login": "Sign in",
     "register": "Create account",
     "logout": "Sign out",
     "admin": "Admin",
-    "cart": "Quote list",
     "search": "Search",
     "menu": "Menu",
     "lightMode": "Switch to light mode",
@@ -64,8 +62,6 @@
     "sku": "SKU",
     "brand": "Brand",
     "unit": "Unit",
-    "addToCart": "Add to cart",
-    "addToQuote": "Add to quote",
     "viewDetails": "View details",
     "noProducts": "No products found"
   },
@@ -83,7 +79,10 @@
     "copySpecs": "Copy specs",
     "specsCopied": "Specifications copied",
     "copyFailed": "Could not copy specifications",
-    "packaging": "Packaging"
+    "packaging": "Packaging",
+    "media": "Photos & videos",
+    "photo": "Product photo",
+    "video": "Video"
   },
   "severity": {
     "info": "Info",
@@ -164,37 +163,6 @@
     "ecoTile": "Eco certifications",
     "ecoText": "Products carry clear eco-certification and biodegradability markers."
   },
-  "quote": {
-    "title": "Request a Quote",
-    "subtitle": "For bulk and B2B orders",
-    "b2b": "B2B & bulk",
-    "contactName": "Contact name",
-    "contactEmail": "Contact email",
-    "contactPhone": "Phone",
-    "companyName": "Company name",
-    "notes": "What do you need?",
-    "submit": "Send request",
-    "success": "Quote request sent. We will contact you shortly.",
-    "failed": "Could not send your request. Please try again.",
-    "items": "Requested items",
-    "list": "Your quote list"
-  },
-  "cart": {
-    "title": "Quote list",
-    "empty": "Your quote list is empty",
-    "total": "Total",
-    "remove": "Remove",
-    "qty": "Qty",
-    "itemsCount": "items",
-    "copied": "Specifications copied",
-    "copyFailed": "Could not copy specifications",
-    "browse": "Browse products",
-    "added": "Added to quote list",
-    "requestQuote": "Request a quote",
-    "copySpecs": "Copy specs",
-    "decrease": "Decrease quantity",
-    "increase": "Increase quantity"
-  },
   "admin": {
     "title": "Admin",
     "products": "Products",
@@ -255,9 +223,7 @@
     "complianceHint": "SDS sheets and safe-handling guidance.",
     "calculatorCard": "Dilution calculator",
     "calculatorHint": "Exact product-to-water ratios per surface.",
-    "ecoStat": "Eco-aware, biodegradable formulations.",
-    "quoteCta": "Need a bulk quote?",
-    "quoteCtaHint": "B2B pricing and fast turnaround for large orders."
+    "ecoStat": "Eco-aware, biodegradable formulations."
   },
   "footer": {
     "tagline": "Factory-grade cleaning materials, delivered.",

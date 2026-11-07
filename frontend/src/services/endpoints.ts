@@ -76,11 +76,6 @@ export async function getMyPricing(): Promise<Pricing | null> {
   return data
 }
 
-export async function requestQuote(payload: QuotePayload): Promise<QuoteResponse> {
-  const { data } = await api.post<QuoteResponse>('/quotes/request', payload)
-  return data
-}
-
 export async function adminListProducts(params: ProductParams = {}): Promise<Paginated<Product>> {
   const { data } = await api.get<Paginated<Product>>('/admin/products', { params })
   return data

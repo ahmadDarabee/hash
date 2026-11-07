@@ -12,7 +12,6 @@ from domain.enums import (
     Language,
     OrderStatus,
     ProductKind,
-    QuoteStatus,
     Role,
     WarningSeverity,
 )

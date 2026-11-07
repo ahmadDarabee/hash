@@ -8,8 +8,7 @@ import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
 import { DilutionCalculator } from '../components/ui/DilutionCalculator'
 import { useToast } from '../components/ui/Toast'
-import { addItem } from '../features/cart/cartSlice'
-import { fetchProduct, fetchProductSds, fetchProductWarnings } from '../features/catalog/catalogThunks'
+import { fetchProduct, fetchProductMedia, fetchProductSds, fetchProductWarnings } from '../features/catalog/catalogThunks'
 import { useProductProfile } from '../features/catalog/useProductProfile'
 import {
   CopyIcon,
@@ -18,7 +17,6 @@ import {
   FileTextIcon,
   FlaskIcon,
   LeafIcon,
-  PlusIcon,
   ShieldCheckIcon,
   WarningIcon,
 } from '../components/icons'
@@ -63,11 +61,6 @@ export default function ProductDetailPage() {
     } catch {
       toast(t('product.copyFailed'), 'danger')
     }
-  }
-
-  function addToQuote() {
-    dispatch(addItem(product))
-    toast(t('cart.added'))
   }
 
   const severityTone = {
@@ -147,10 +140,6 @@ export default function ProductDetailPage() {
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <Button size="lg" onClick={addToQuote}>
-                  <PlusIcon className="h-4 w-4" />
-                  {t('catalog.addToQuote')}
-                </Button>
                 <Button size="lg" variant="secondary" onClick={copySpecs}>
                   <CopyIcon className="h-4 w-4" />
                   {t('product.copySpecs')}
