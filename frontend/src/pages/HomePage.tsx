@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { fetchCategories, fetchProducts } from '../features/catalog/catalogThunks'
 import { useProductProfile } from '../features/catalog/useProductProfile'
 import { Badge } from '../components/ui/Badge'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import {
   ArrowRightIcon,
   DropletIcon,
@@ -90,7 +89,6 @@ export default function HomePage() {
         {/* Mac-style product window */}
         <div className="animate-scale-in">
           <div className="glass-strong float-2 overflow-hidden rounded-2xl">
-            <WindowChrome title="Hash — Product Inspector" />
             <div className="p-6">
               {featured ? (
                 <Link to={`/products/${featured.id}`} className="group block">

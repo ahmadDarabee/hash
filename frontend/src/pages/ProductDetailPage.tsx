@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import { DilutionCalculator } from '../components/ui/DilutionCalculator'
 import { useToast } from '../components/ui/Toast'
 import { addItem } from '../features/cart/cartSlice'
@@ -83,7 +82,6 @@ export default function ProductDetailPage() {
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-5">
       {/* Product window */}
       <div className="glass-strong float-2 overflow-hidden rounded-3xl">
-        <WindowChrome title={`Hash — ${product.sku}`} />
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="max-w-2xl">

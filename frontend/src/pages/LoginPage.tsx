@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import { login } from '../features/auth/authThunks'
 import { DropletIcon } from '../components/icons'
 
@@ -33,7 +32,6 @@ export default function LoginPage() {
       </span>
 
       <div className="glass-strong float-2 mt-6 w-full overflow-hidden rounded-3xl">
-        <WindowChrome title="Hash — Sign in" />
         <form onSubmit={onSubmit} className="p-6">
           <h1 className="text-2xl font-bold text-ink">{t('auth.loginTitle')}</h1>
           {error && (

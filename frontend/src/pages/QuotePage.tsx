@@ -6,7 +6,6 @@ import { useAppSelector } from '../app/hooks'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { Input } from '../components/ui/Input'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import { useToast } from '../components/ui/Toast'
 import { useProductProfile } from '../features/catalog/useProductProfile'
 import { requestQuote } from '../services/endpoints'
@@ -71,7 +70,6 @@ export default function QuotePage() {
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {/* Form */}
         <div className="glass-strong float-2 overflow-hidden rounded-3xl lg:col-span-2">
-          <WindowChrome title="Hash — Request a quote" />
           {success ? (
             <div className="flex flex-col items-center gap-3 p-10 text-center">
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lime/15 text-lime">

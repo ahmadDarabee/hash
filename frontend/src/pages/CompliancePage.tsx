@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
 import { Badge } from '../components/ui/Badge'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import { FileTextIcon, ShieldCheckIcon, WarningIcon, LeafIcon } from '../components/icons'
 
 export default function CompliancePage() {
@@ -25,7 +24,6 @@ export default function CompliancePage() {
 
       {/* Disclaimer */}
       <div className="glass mt-8 overflow-hidden rounded-3xl border-amber/25">
-        <WindowChrome title="Hash — Safety Notice" className="border-amber/20" />
         <div className="flex items-start gap-3 p-6">
           <WarningIcon className="h-5 w-5 shrink-0 text-amber" />
           <div>

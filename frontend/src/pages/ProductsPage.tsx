@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import { Spinner } from '../components/ui/Spinner'
 import { useToast } from '../components/ui/Toast'
 import { addItem } from '../features/cart/cartSlice'
@@ -198,7 +197,6 @@ export default function ProductsPage() {
             const name = lang === 'ar' ? product.name_ar : product.name_en
             return (
               <div key={product.id} className="glass hover-lift group flex flex-col overflow-hidden rounded-2xl">
-                <WindowChrome title={product.sku} className="opacity-70" />
                 <div className="flex flex-1 flex-col p-5">
                   <Link to={`/products/${product.id}`} className="block">
                     <h2 className="text-base font-bold text-ink transition-colors group-hover:text-brand">

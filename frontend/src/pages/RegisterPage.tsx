@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { Select } from '../components/ui/Select'
-import { WindowChrome } from '../components/ui/WindowChrome'
 import { register } from '../features/auth/authThunks'
 import type { CustomerType, Language } from '../types'
 import { DropletIcon } from '../components/icons'
@@ -47,7 +46,6 @@ export default function RegisterPage() {
       </span>
 
       <div className="glass-strong float-2 mt-6 w-full overflow-hidden rounded-3xl">
-        <WindowChrome title="Hash — Create account" />
         <form onSubmit={onSubmit} className="p-6">
           <h1 className="text-2xl font-bold text-ink">{t('auth.registerTitle')}</h1>
           {error && (
