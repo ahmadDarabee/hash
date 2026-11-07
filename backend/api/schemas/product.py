@@ -4,7 +4,7 @@ import datetime as dt
 
 from pydantic import BaseModel, ConfigDict
 
-from domain.enums import Language, ProductKind, WarningSeverity
+from domain.enums import Language, MediaKind, ProductKind, WarningSeverity
 
 
 class ProductResponse(BaseModel):
@@ -43,3 +43,14 @@ class WarningResponse(BaseModel):
     language: Language
     severity: WarningSeverity
     text: str
+
+
+class ProductMediaResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    product_id: int
+    kind: MediaKind
+    url: str
+    title: str | None = None
+    sort_order: int = 0

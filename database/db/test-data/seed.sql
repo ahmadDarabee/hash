@@ -15,5 +15,6 @@ BEGIN;
 \ir 0006_inventory.sql
 \ir 0007_compliance.sql
 \ir 0008_users.sql
+\ir 0009_product_media.sql
 
 COMMIT;

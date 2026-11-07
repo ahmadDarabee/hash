@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getErrorMessage } from '../../services/api'
 import * as endpoints from '../../services/endpoints'
-import type { Category, Paginated, Product, SdsDocument, SafetyWarning } from '../../types'
+import type { Category, Paginated, Product, ProductMedia, SdsDocument, SafetyWarning } from '../../types'
 
 interface ProductParams {
   page?: number
@@ -63,6 +63,18 @@ export const fetchProductWarnings = createAsyncThunk<
 >('catalog/fetchProductWarnings', async (id, { rejectWithValue }) => {
   try {
     return await endpoints.getProductWarnings(id)
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error))
+  }
+})
+
+export const fetchProductMedia = createAsyncThunk<
+  ProductMedia[],
+  string,
+  { rejectValue: string }
+>('catalog/fetchProductMedia', async (id, { rejectWithValue }) => {
+  try {
+    return await endpoints.getProductMedia(id)
   } catch (error) {
     return rejectWithValue(getErrorMessage(error))
   }

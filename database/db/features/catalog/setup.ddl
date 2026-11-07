@@ -36,6 +36,16 @@ CREATE TABLE IF NOT EXISTS product_variant (
     packaging  TEXT NOT NULL
 ) INHERITS (audit);
 
+CREATE TABLE IF NOT EXISTS product_media (
+    id         SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL REFERENCES product (id) ON DELETE CASCADE,
+    kind       TEXT NOT NULL CHECK (kind IN ('image', 'video')),
+    url        TEXT NOT NULL,
+    title      TEXT,
+    sort_order INTEGER NOT NULL DEFAULT 0
+) INHERITS (audit);
+
 CREATE INDEX IF NOT EXISTS idx_products_category ON product (category_id);
 CREATE INDEX IF NOT EXISTS idx_products_sku ON product (sku);
 CREATE INDEX IF NOT EXISTS idx_product_variants_product ON product_variant (product_id);
+CREATE INDEX IF NOT EXISTS idx_product_media_product ON product_media (product_id);

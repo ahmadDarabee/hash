@@ -5,8 +5,7 @@ import type {
   Paginated,
   Pricing,
   Product,
-  QuotePayload,
-  QuoteResponse,
+  ProductMedia,
   SdsDocument,
   SafetyWarning,
   User,
@@ -63,6 +62,11 @@ export async function getProductSds(id: string): Promise<SdsDocument[]> {
 
 export async function getProductWarnings(id: string): Promise<SafetyWarning[]> {
   const { data } = await api.get<SafetyWarning[]>(`/products/${id}/warnings`)
+  return data
+}
+
+export async function getProductMedia(id: string): Promise<ProductMedia[]> {
+  const { data } = await api.get<ProductMedia[]>(`/products/${id}/media`)
   return data
 }
 

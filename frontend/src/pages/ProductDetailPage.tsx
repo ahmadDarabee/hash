@@ -7,6 +7,7 @@ import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
 import { DilutionCalculator } from '../components/ui/DilutionCalculator'
+import { MediaGallery } from '../components/ui/MediaGallery'
 import { useToast } from '../components/ui/Toast'
 import { fetchProduct, fetchProductMedia, fetchProductSds, fetchProductWarnings } from '../features/catalog/catalogThunks'
 import { useProductProfile } from '../features/catalog/useProductProfile'
@@ -25,7 +26,7 @@ export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { t, i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  const { selected, sds, warnings, status } = useAppSelector((state) => state.catalog)
+  const { selected, sds, warnings, media, status } = useAppSelector((state) => state.catalog)
   const profileOf = useProductProfile()
   const { toast } = useToast()
 
@@ -36,6 +37,7 @@ export default function ProductDetailPage() {
       void dispatch(fetchProduct(id))
       void dispatch(fetchProductSds(id))
       void dispatch(fetchProductWarnings(id))
+      void dispatch(fetchProductMedia(id))
     }
   }, [dispatch, id])
 
@@ -149,6 +151,9 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Media gallery (photos + videos) */}
+      <MediaGallery media={media} />
 
       {/* Dilution calculator */}
       <div className="mt-8">

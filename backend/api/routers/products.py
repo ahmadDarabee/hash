@@ -6,11 +6,12 @@ from fastapi import APIRouter, Depends, Query
 from api.deps import (
     get_list_products,
     get_product,
+    get_product_media,
     get_product_sds,
     get_product_warnings,
 )
 from api.schemas.common import Paginated
-from api.schemas.product import ProductResponse, SdsResponse, WarningResponse
+from api.schemas.product import ProductMediaResponse, ProductResponse, SdsResponse, WarningResponse
 
 router = APIRouter(prefix="/products", tags=["products"])
 
@@ -54,3 +55,10 @@ async def get_product_warnings(
     product_id: int, use_case=Depends(get_product_warnings)
 ) -> list[WarningResponse]:
     return [WarningResponse.model_validate(w) for w in await use_case.execute(product_id)]
+
+
+@router.get("/{product_id}/media", response_model=list[ProductMediaResponse])
+async def get_product_media(
+    product_id: int, use_case=Depends(get_product_media)
+) -> list[ProductMediaResponse]:
+    return [ProductMediaResponse.model_validate(m) for m in await use_case.execute(product_id)]

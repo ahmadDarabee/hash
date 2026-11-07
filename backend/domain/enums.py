@@ -43,8 +43,6 @@ class WarningSeverity(str, Enum):
     DANGER = "danger"
 
 
-class QuoteStatus(str, Enum):
-    NEW = "new"
-    REVIEWED = "reviewed"
-    RESPONDED = "responded"
-    CLOSED = "closed"
+class MediaKind(str, Enum):
+    IMAGE = "image"
+    VIDEO = "video"

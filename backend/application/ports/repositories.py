@@ -16,7 +16,7 @@ from domain.entities import (
     PriceList,
     PriceListItem,
     Product,
-    QuoteRequest,
+    ProductMedia,
     SdsDocument,
     SafetyWarning,
     User,
@@ -132,18 +132,8 @@ class ComplianceRepository(Protocol):
     ) -> SafetyWarning: ...
 
 
-class QuoteRepository(Protocol):
-    async def create(
-        self,
-        *,
-        user_id: int | None,
-        contact_name: str,
-        contact_email: str,
-        contact_phone: str | None,
-        company_name: str | None,
-        notes: str | None,
-    ) -> QuoteRequest: ...
-
+class ProductMediaRepository(Protocol):
+    async def list_media(self, product_id: int) -> list[ProductMedia]: ...
 
 class InventoryRepository(Protocol):
     async def list_items(self, product_id: int) -> list[InventoryItem]: ...

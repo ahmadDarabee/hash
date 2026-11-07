@@ -22,6 +22,7 @@ from application.use_cases.auth.register import Register
 from application.use_cases.catalog.get_product import GetProduct
 from application.use_cases.catalog.get_sds import GetProductSds
 from application.use_cases.catalog.get_warnings import GetProductWarnings
+from application.use_cases.catalog.get_media import GetProductMedia
 from application.use_cases.catalog.list_categories import ListCategories
 from application.use_cases.catalog.list_products import ListProducts
 from application.use_cases.pricing.get_effective_pricing import GetEffectivePricing
@@ -39,6 +40,7 @@ from infrastructure.repositories.compliance_repository import ComplianceReposito
 from infrastructure.repositories.inventory_repository import InventoryRepository
 from infrastructure.repositories.pricing_repository import PricingRepository
 from infrastructure.repositories.product_repository import ProductRepository
+from infrastructure.repositories.product_media_repository import ProductMediaRepository
 from infrastructure.repositories.refresh_token_repository import RefreshTokenRepository
 from infrastructure.repositories.user_repository import UserRepository
 
@@ -60,6 +62,10 @@ def get_refresh_token_repository(pool: asyncpg.Pool = Depends(get_pool)) -> Refr
 
 def get_product_repository(pool: asyncpg.Pool = Depends(get_pool)) -> ProductRepository:
     return ProductRepository(pool)
+
+
+def get_product_media_repository(pool: asyncpg.Pool = Depends(get_pool)) -> ProductMediaRepository:
+    return ProductMediaRepository(pool)
 
 
 def get_category_repository(pool: asyncpg.Pool = Depends(get_pool)) -> CategoryRepository:
@@ -149,6 +155,13 @@ def get_product_warnings(
     products: ProductRepository = Depends(get_product_repository),
 ) -> GetProductWarnings:
     return GetProductWarnings(compliance, products)
+
+
+def get_product_media(
+    media: ProductMediaRepository = Depends(get_product_media_repository),
+    products: ProductRepository = Depends(get_product_repository),
+) -> GetProductMedia:
+    return GetProductMedia(media, products)
 
 
 def get_list_categories(

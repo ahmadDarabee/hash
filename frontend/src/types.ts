@@ -56,6 +56,15 @@ export interface SafetyWarning {
   text: string
 }
 
+export interface ProductMedia {
+  id: string
+  product_id: string
+  kind: 'image' | 'video'
+  url: string
+  title: string | null
+  sort_order: number
+}
+
 export interface PriceListItem {
   product_id: string
   price: string

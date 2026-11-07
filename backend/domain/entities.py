@@ -10,6 +10,7 @@ from domain.enums import (
     CustomerType,
     InventoryMovementType,
     Language,
+    MediaKind,
     OrderStatus,
     ProductKind,
     Role,
@@ -143,13 +144,10 @@ class OrderItem:
 
 
 @dataclass(frozen=True, slots=True)
-class QuoteRequest:
+class ProductMedia:
     id: int
-    contact_name: str
-    contact_email: str
-    status: QuoteStatus
-    contact_phone: str | None = None
-    company_name: str | None = None
-    notes: str | None = None
-    user_id: int | None = None
-    created_at: dt.datetime | None = None
+    product_id: int
+    kind: MediaKind
+    url: str
+    title: str | None = None
+    sort_order: int = 0

@@ -303,3 +303,21 @@ export function UsersIcon({ className = 'h-5 w-5' }: IconProps) {
     </svg>
   )
 }
+
+export function PlayIcon({ className = 'h-5 w-5' }: IconProps) {
+  return (
+    <svg {...base(className)}>
+      <polygon points="6 3 20 12 6 21 6 3" />
+    </svg>
+  )
+}
+
+export function ImageIcon({ className = 'h-5 w-5' }: IconProps) {
+  return (
+    <svg {...base(className)}>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <polyline points="21 15 16 10 5 21" />
+    </svg>
+  )
+}
