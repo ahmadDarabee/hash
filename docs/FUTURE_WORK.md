@@ -34,11 +34,6 @@ To enable one: write a real implementation, then swap the provider in
 - **Full admin** — roles management, reports, inventory UI, order management,
   price-list management UI. Current admin covers products (list/create/edit),
   SDS upload, user list, and per-customer price-list assignment.
-- **Wojak LLM adapter** — backend is rule-based intents. Swap
-  `WojakChatService` (backend) and the frontend `WojakChatService` interface.
-- **Wojak art** — the character is a minimal inline SVG (`WojakFace.tsx`). If a
-  richer illustrated character is wanted later, replace it without touching the
-  mood/bus/chat wiring.
 
 ## Testing (not implemented)
 

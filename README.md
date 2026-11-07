@@ -1,8 +1,7 @@
 # Hash
 
 Factory-grade cleaning materials website (detergents, sanitizers, industrial
-degreasers, soaps). Bilingual Arabic (RTL) / English (LTR), with a reactive
-"Wojak" SVG character and rule-based chatbot.
+degreasers, soaps). Bilingual Arabic (RTL) / English (LTR)
 
 ## Monorepo layout
 
@@ -55,9 +54,3 @@ docs/        Wojak integration guide + future work
 
 API base: `http://localhost:8000/api/v1` · UI: `http://localhost:5173`
 
-## Documentation
-
-- `docs/WOJAK_INTEGRATION.md` — how events drive the Wojak character and chat.
-- `docs/FUTURE_WORK.md` — every stub, TODO, and deferred feature.
-- `database/db/features/<feature>/` — schema organized per domain, each with
-  `setup.ddl` (tables), `functions.ddl`, `triggers.ddl`, and `views.ddl`.
