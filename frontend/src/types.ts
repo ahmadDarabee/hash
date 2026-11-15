@@ -38,16 +38,6 @@ export interface Product {
   is_active: boolean
 }
 
-export interface SdsDocument {
-  id: string
-  product_id: string
-  language: Language
-  version: string
-  file_url: string
-  issued_at: string
-  revision_notes: string | null
-}
-
 export interface SafetyWarning {
   id: string
   product_id: string

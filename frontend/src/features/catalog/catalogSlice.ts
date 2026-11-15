@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { Category, Product, ProductMedia, SdsDocument, SafetyWarning } from '../../types'
+import type { Category, Product, ProductMedia, SafetyWarning } from '../../types'
 import {
   fetchCategories,
   fetchProduct,
   fetchProductMedia,
   fetchProducts,
-  fetchProductSds,
   fetchProductWarnings,
 } from './catalogThunks'
 
@@ -14,7 +13,6 @@ interface CatalogState {
   products: Product[]
   categories: Category[]
   selected: Product | null
-  sds: SdsDocument[]
   warnings: SafetyWarning[]
   media: ProductMedia[]
   total: number
@@ -28,7 +26,6 @@ const initialState: CatalogState = {
   products: [],
   categories: [],
   selected: null,
-  sds: [],
   warnings: [],
   media: [],
   total: 0,
@@ -63,7 +60,6 @@ const catalogSlice = createSlice({
       })
       .addCase(fetchProduct.pending, (state) => {
         state.selected = null
-        state.sds = []
         state.warnings = []
         state.media = []
         state.status = 'loading'
@@ -75,9 +71,6 @@ const catalogSlice = createSlice({
       .addCase(fetchProduct.rejected, (state, action) => {
         state.error = action.payload ?? 'product not found'
         state.status = 'error'
-      })
-      .addCase(fetchProductSds.fulfilled, (state, action) => {
-        state.sds = action.payload
       })
       .addCase(fetchProductWarnings.fulfilled, (state, action) => {
         state.warnings = action.payload

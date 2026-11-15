@@ -1,13 +1,10 @@
 """Admin endpoints (v1 minimal)."""
 
-import datetime as dt
-
-from fastapi import APIRouter, Depends, File, Form, Query, Response, UploadFile
+from fastapi import APIRouter, Depends, Query, Response
 
 from api.deps import (
     get_admin_assign_pricing,
     get_admin_create_product,
-    get_admin_create_sds,
     get_admin_list_products,
     get_admin_list_users,
     get_admin_update_product,
@@ -16,8 +13,7 @@ from api.deps import (
 from api.schemas.admin import AssignPricingRequest, ProductCreate, ProductUpdate
 from api.schemas.auth import UserResponse
 from api.schemas.common import Paginated
-from api.schemas.product import ProductResponse, SdsResponse
-from domain.enums import Language
+from api.schemas.product import ProductResponse
 
 router = APIRouter(
     prefix="/admin",
@@ -70,30 +66,6 @@ async def update_product(
 ) -> ProductResponse:
     product = await use_case.execute(product_id, body.model_dump(exclude_none=True))
     return ProductResponse.model_validate(product)
-
-
-@router.post("/sds", response_model=SdsResponse, status_code=201)
-async def create_sds(
-    file: UploadFile = File(...),
-    product_id: int = Form(...),
-    language: Language = Form(...),
-    version: str = Form(...),
-    issued_at: dt.date = Form(...),
-    revision_notes: str | None = Form(None),
-    use_case=Depends(get_admin_create_sds),
-) -> SdsResponse:
-    data = await file.read()
-    sds = await use_case.execute(
-        product_id=product_id,
-        language=language,
-        version=version,
-        issued_at=issued_at,
-        revision_notes=revision_notes,
-        filename=file.filename or "document.pdf",
-        data=data,
-        content_type=file.content_type or "application/pdf",
-    )
-    return SdsResponse.model_validate(sds)
 
 
 @router.get("/users", response_model=Paginated[UserResponse])

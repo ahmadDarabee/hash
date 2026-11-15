@@ -22,7 +22,6 @@ class Settings(BaseSettings):
     access_token_minutes: int = 15
     refresh_token_days: int = 7
 
-    sds_upload_dir: str = "./uploads/sds"
     cors_origins: list[str] = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",

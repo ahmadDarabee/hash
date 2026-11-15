@@ -7,7 +7,6 @@ import {
   adminListProducts,
   adminListUsers,
   adminUpdateProduct,
-  adminUploadSds,
 } from './adminThunks'
 
 interface AdminState {
@@ -61,7 +60,6 @@ const adminSlice = createSlice({
       .addCase(adminListUsers.rejected, (state, action) => {
         state.error = action.payload ?? 'failed to load users'
       })
-      .addCase(adminUploadSds.fulfilled, () => undefined)
       .addCase(adminAssignPricing.fulfilled, () => undefined)
   },
 })

@@ -7,11 +7,10 @@ from api.deps import (
     get_list_products,
     get_product,
     get_product_media,
-    get_product_sds,
     get_product_warnings,
 )
 from api.schemas.common import Paginated
-from api.schemas.product import ProductMediaResponse, ProductResponse, SdsResponse, WarningResponse
+from api.schemas.product import ProductMediaResponse, ProductResponse, WarningResponse
 
 router = APIRouter(prefix="/products", tags=["products"])
 
@@ -41,13 +40,6 @@ async def list_products(
 @router.get("/{product_id}", response_model=ProductResponse)
 async def get_product(product_id: int, use_case=Depends(get_product)) -> ProductResponse:
     return ProductResponse.model_validate(await use_case.execute(product_id))
-
-
-@router.get("/{product_id}/sds", response_model=list[SdsResponse])
-async def get_product_sds(
-    product_id: int, use_case=Depends(get_product_sds)
-) -> list[SdsResponse]:
-    return [SdsResponse.model_validate(s) for s in await use_case.execute(product_id)]
 
 
 @router.get("/{product_id}/warnings", response_model=list[WarningResponse])

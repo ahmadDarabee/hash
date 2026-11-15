@@ -10,7 +10,6 @@ import { changeLanguage } from './i18n'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminProductsPage from './pages/admin/AdminProductsPage'
-import AdminSdsPage from './pages/admin/AdminSdsPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
 import CompliancePage from './pages/CompliancePage'
 import HomePage from './pages/HomePage'
@@ -49,7 +48,6 @@ export default function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboardPage />} />
             <Route path="products" element={<AdminProductsPage />} />
-            <Route path="sds" element={<AdminSdsPage />} />
             <Route path="users" element={<AdminUsersPage />} />
           </Route>
         </Routes>

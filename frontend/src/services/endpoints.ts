@@ -6,7 +6,6 @@ import type {
   Pricing,
   Product,
   ProductMedia,
-  SdsDocument,
   SafetyWarning,
   User,
 } from '../types'
@@ -55,11 +54,6 @@ export async function getProduct(id: string): Promise<Product> {
   return data
 }
 
-export async function getProductSds(id: string): Promise<SdsDocument[]> {
-  const { data } = await api.get<SdsDocument[]>(`/products/${id}/sds`)
-  return data
-}
-
 export async function getProductWarnings(id: string): Promise<SafetyWarning[]> {
   const { data } = await api.get<SafetyWarning[]>(`/products/${id}/warnings`)
   return data
@@ -92,11 +86,6 @@ export async function adminCreateProduct(payload: Partial<Product>): Promise<Pro
 
 export async function adminUpdateProduct(id: string, changes: Partial<Product>): Promise<Product> {
   const { data } = await api.put<Product>(`/admin/products/${id}`, changes)
-  return data
-}
-
-export async function adminUploadSds(form: FormData): Promise<SdsDocument> {
-  const { data } = await api.post<SdsDocument>('/admin/sds', form)
   return data
 }
 

@@ -7,11 +7,9 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from application.ports.notification import NotificationProvider
 from application.ports.payment import PaymentProvider
-from application.ports.storage import StorageAdapter
 from application.ports.tracking import OrderTrackingProvider
 from application.use_cases.admin.assign_pricing import AdminAssignPricing
 from application.use_cases.admin.create_product import AdminCreateProduct
-from application.use_cases.admin.create_sds import AdminCreateSds
 from application.use_cases.admin.list_products import AdminListProducts
 from application.use_cases.admin.list_users import AdminListUsers
 from application.use_cases.admin.update_product import AdminUpdateProduct
@@ -20,18 +18,15 @@ from application.use_cases.auth.logout import Logout
 from application.use_cases.auth.refresh import Refresh
 from application.use_cases.auth.register import Register
 from application.use_cases.catalog.get_product import GetProduct
-from application.use_cases.catalog.get_sds import GetProductSds
 from application.use_cases.catalog.get_warnings import GetProductWarnings
 from application.use_cases.catalog.get_media import GetProductMedia
 from application.use_cases.catalog.list_categories import ListCategories
 from application.use_cases.catalog.list_products import ListProducts
 from application.use_cases.pricing.get_effective_pricing import GetEffectivePricing
-from core.config import get_settings
 from core.security import decode_access_token
 from domain.entities import User
 from domain.enums import Role
 from domain.errors import AuthenticationError, AuthorizationError
-from infrastructure.adapters.local_storage import LocalDiskStorage
 from infrastructure.adapters.noop_notification import NoopNotificationProvider
 from infrastructure.adapters.noop_payment import NoopPaymentProvider
 from infrastructure.adapters.noop_tracking import NoopOrderTrackingProvider
@@ -82,11 +77,6 @@ def get_compliance_repository(pool: asyncpg.Pool = Depends(get_pool)) -> Complia
 
 def get_inventory_repository(pool: asyncpg.Pool = Depends(get_pool)) -> InventoryRepository:
     return InventoryRepository(pool)
-
-
-def get_storage() -> StorageAdapter:
-    return LocalDiskStorage(get_settings().sds_upload_dir)
-
 
 
 def get_payment_provider() -> PaymentProvider:
@@ -143,13 +133,6 @@ def get_product(
     return GetProduct(products)
 
 
-def get_product_sds(
-    compliance: ComplianceRepository = Depends(get_compliance_repository),
-    products: ProductRepository = Depends(get_product_repository),
-) -> GetProductSds:
-    return GetProductSds(compliance, products)
-
-
 def get_product_warnings(
     compliance: ComplianceRepository = Depends(get_compliance_repository),
     products: ProductRepository = Depends(get_product_repository),
@@ -192,14 +175,6 @@ def get_admin_update_product(
     products: ProductRepository = Depends(get_product_repository),
 ) -> AdminUpdateProduct:
     return AdminUpdateProduct(products)
-
-
-def get_admin_create_sds(
-    compliance: ComplianceRepository = Depends(get_compliance_repository),
-    products: ProductRepository = Depends(get_product_repository),
-    storage: StorageAdapter = Depends(get_storage),
-) -> AdminCreateSds:
-    return AdminCreateSds(compliance, products, storage)
 
 
 def get_admin_list_users(

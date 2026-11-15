@@ -5,11 +5,9 @@ Run from the backend/ directory:
 """
 
 from contextlib import asynccontextmanager
-from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from api.errors import register_exception_handlers
 from api.routers import admin, auth, categories, pricing, products
@@ -39,10 +37,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Serve uploaded SDS files. The directory must exist before mounting.
-Path(settings.sds_upload_dir).mkdir(parents=True, exist_ok=True)
-app.mount("/files", StaticFiles(directory=settings.sds_upload_dir), name="files")
 
 for router in (
     auth.router,

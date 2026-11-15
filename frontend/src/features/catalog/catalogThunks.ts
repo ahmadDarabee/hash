@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getErrorMessage } from '../../services/api'
 import * as endpoints from '../../services/endpoints'
-import type { Category, Paginated, Product, ProductMedia, SdsDocument, SafetyWarning } from '../../types'
+import type { Category, Paginated, Product, ProductMedia, SafetyWarning } from '../../types'
 
 interface ProductParams {
   page?: number
@@ -39,17 +39,6 @@ export const fetchProduct = createAsyncThunk<Product, string, { rejectValue: str
   async (id, { rejectWithValue }) => {
     try {
       return await endpoints.getProduct(id)
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error))
-    }
-  },
-)
-
-export const fetchProductSds = createAsyncThunk<SdsDocument[], string, { rejectValue: string }>(
-  'catalog/fetchProductSds',
-  async (id, { rejectWithValue }) => {
-    try {
-      return await endpoints.getProductSds(id)
     } catch (error) {
       return rejectWithValue(getErrorMessage(error))
     }

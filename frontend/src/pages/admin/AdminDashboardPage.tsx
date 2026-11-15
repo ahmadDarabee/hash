@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { adminListProducts, adminListUsers } from '../../features/admin/adminThunks'
-import { FileTextIcon, UsersIcon, BoxIcon, LayersIcon } from '../../components/icons'
+import { UsersIcon, BoxIcon, LayersIcon } from '../../components/icons'
 
 export default function AdminDashboardPage() {
   const { t } = useTranslation()
@@ -18,7 +18,6 @@ export default function AdminDashboardPage() {
 
   const actions = [
     { to: '/admin/products', label: t('admin.products'), description: t('admin.manageProducts'), icon: BoxIcon },
-    { to: '/admin/sds', label: t('admin.sds'), description: t('admin.uploadSds'), icon: FileTextIcon },
     { to: '/admin/users', label: t('admin.users'), description: t('admin.manageUsers'), icon: UsersIcon },
   ]
 
@@ -41,7 +40,7 @@ export default function AdminDashboardPage() {
       </div>
 
       <h2 className="mt-8 text-lg font-semibold text-ink">{t('admin.quickActions')}</h2>
-      <div className="mt-3 grid gap-4 sm:grid-cols-3">
+      <div className="mt-3 grid gap-4 sm:grid-cols-2">
         {actions.map(({ to, label, description, icon: Icon }) => (
           <Link key={to} to={to} className="glass hover-lift group rounded-3xl p-5">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand">

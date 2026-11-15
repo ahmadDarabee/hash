@@ -10,5 +10,5 @@ dev-backend:
 dev-frontend:
 	@cd frontend && npm run dev
 
-dev-run: dev-stop
+dev: dev-stop
 	@make -j2 dev-backend dev-frontend

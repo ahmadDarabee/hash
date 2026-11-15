@@ -73,7 +73,6 @@ export default function HomePage() {
 
           <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
             {[
-              { icon: ShieldCheckIcon, label: t('home.sdsGuarantee') },
               { icon: LeafIcon, label: t('home.eco') },
               { icon: FlaskIcon, label: t('home.labTested') },
             ].map(({ icon: Icon, label }) => (

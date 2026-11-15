@@ -1,4 +1,4 @@
 -- =============================================================
--- compliance — SDS/MSDS documents and safety warnings
+-- compliance — safety warnings
 -- views.ddl — feature views (none required for v1)
 -- =============================================================

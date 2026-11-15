@@ -9,13 +9,11 @@ import { Spinner } from '../components/ui/Spinner'
 import { DilutionCalculator } from '../components/ui/DilutionCalculator'
 import { MediaGallery } from '../components/ui/MediaGallery'
 import { useToast } from '../components/ui/Toast'
-import { fetchProduct, fetchProductMedia, fetchProductSds, fetchProductWarnings } from '../features/catalog/catalogThunks'
+import { fetchProduct, fetchProductMedia, fetchProductWarnings } from '../features/catalog/catalogThunks'
 import { useProductProfile } from '../features/catalog/useProductProfile'
 import {
   CopyIcon,
-  DownloadIcon,
   DropletIcon,
-  FileTextIcon,
   FlaskIcon,
   LeafIcon,
   ShieldCheckIcon,
@@ -26,7 +24,7 @@ export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { t, i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  const { selected, sds, warnings, media, status } = useAppSelector((state) => state.catalog)
+  const { selected, warnings, media, status } = useAppSelector((state) => state.catalog)
   const profileOf = useProductProfile()
   const { toast } = useToast()
 
@@ -35,7 +33,6 @@ export default function ProductDetailPage() {
   useEffect(() => {
     if (id) {
       void dispatch(fetchProduct(id))
-      void dispatch(fetchProductSds(id))
       void dispatch(fetchProductWarnings(id))
       void dispatch(fetchProductMedia(id))
     }
@@ -51,7 +48,6 @@ export default function ProductDetailPage() {
 
   const product = selected
   const profile = profileOf(product)
-  const localizedSds = sds.filter((doc) => doc.language === lang)
   const localizedWarnings = warnings.filter((warning) => warning.language === lang)
   const name = lang === 'ar' ? product.name_ar : product.name_en
 
@@ -159,42 +155,6 @@ export default function ProductDetailPage() {
       <div className="mt-8">
         <DilutionCalculator profile={profile} />
       </div>
-
-      {/* SDS */}
-      <section className="mt-10">
-        <div className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand/10 text-brand">
-            <FileTextIcon className="h-5 w-5" />
-          </span>
-          <h2 className="text-xl font-bold text-ink">{t('product.sds')}</h2>
-        </div>
-        {localizedSds.length === 0 ? (
-          <p className="mt-3 text-sm text-muted">{t('product.noSds')}</p>
-        ) : (
-          <ul className="mt-4 space-y-2">
-            {localizedSds.map((doc) => (
-              <li key={doc.id} className="glass flex items-center justify-between gap-3 rounded-2xl px-4 py-3">
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-ink">
-                    {t('product.version')} {doc.version}
-                  </p>
-                  <p className="font-mono text-xs text-muted">
-                    {t('product.issuedAt')}: {doc.issued_at}
-                  </p>
-                </div>
-                <a
-                  href={doc.file_url}
-                  download
-                  className="pressable inline-flex shrink-0 items-center gap-2 rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand hover:bg-brand/20"
-                >
-                  <DownloadIcon className="h-4 w-4" />
-                  {t('product.download')}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
 
       {/* Warnings */}
       <section className="mt-10">

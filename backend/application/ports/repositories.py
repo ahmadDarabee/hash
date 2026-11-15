@@ -17,7 +17,6 @@ from domain.entities import (
     PriceListItem,
     Product,
     ProductMedia,
-    SdsDocument,
     SafetyWarning,
     User,
 )
@@ -107,20 +106,7 @@ class PricingRepository(Protocol):
 
 
 class ComplianceRepository(Protocol):
-    async def list_sds(self, product_id: int) -> list[SdsDocument]: ...
-
     async def list_warnings(self, product_id: int) -> list[SafetyWarning]: ...
-
-    async def create_sds(
-        self,
-        *,
-        product_id: int,
-        language: Language,
-        version: str,
-        file_url: str,
-        issued_at: dt.date,
-        revision_notes: str | None,
-    ) -> SdsDocument: ...
 
     async def create_warning(
         self,

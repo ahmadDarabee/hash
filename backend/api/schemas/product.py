@@ -1,7 +1,5 @@
 """Catalog response schemas."""
 
-import datetime as dt
-
 from pydantic import BaseModel, ConfigDict
 
 from domain.enums import Language, MediaKind, ProductKind, WarningSeverity
@@ -21,18 +19,6 @@ class ProductResponse(BaseModel):
     unit: str
     kind: ProductKind
     is_active: bool = True
-
-
-class SdsResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    product_id: int
-    language: Language
-    version: str
-    file_url: str
-    issued_at: dt.date
-    revision_notes: str | None = None
 
 
 class WarningResponse(BaseModel):

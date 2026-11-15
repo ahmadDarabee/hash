@@ -14,6 +14,7 @@ TRUNCATE TABLE
     acl_user,
     inventory_movement,
     inventory_item,
+    safety_warning,
     price_list_item,
     price_list,
     product_media,

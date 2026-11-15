@@ -1,24 +1,10 @@
-"""Compliance repository: SDS documents and safety warnings (raw SQL)."""
-
-import datetime as dt
+"""Compliance repository: safety warnings (raw SQL)."""
 
 import asyncpg
 
-from domain.entities import SdsDocument, SafetyWarning
+from domain.entities import SafetyWarning
 from domain.enums import Language, WarningSeverity
 from infrastructure.repositories.base import BaseRepository
-
-
-def _sds_from_row(row: asyncpg.Record) -> SdsDocument:
-    return SdsDocument(
-        id=row["id"],
-        product_id=row["product_id"],
-        language=Language(row["language"]),
-        version=row["version"],
-        file_url=row["file_url"],
-        issued_at=row["issued_at"],
-        revision_notes=row["revision_notes"],
-    )
 
 
 def _warning_from_row(row: asyncpg.Record) -> SafetyWarning:
@@ -32,14 +18,6 @@ def _warning_from_row(row: asyncpg.Record) -> SafetyWarning:
 
 
 class ComplianceRepository(BaseRepository):
-    async def list_sds(self, product_id: int) -> list[SdsDocument]:
-        rows = await self._pool.fetch(
-            "SELECT id, product_id, language, version, file_url, issued_at, revision_notes "
-            "FROM sds_document WHERE product_id = $1 ORDER BY issued_at DESC, version DESC",
-            product_id,
-        )
-        return [_sds_from_row(r) for r in rows]
-
     async def list_warnings(self, product_id: int) -> list[SafetyWarning]:
         rows = await self._pool.fetch(
             "SELECT id, product_id, language, severity, text "
@@ -48,29 +26,6 @@ class ComplianceRepository(BaseRepository):
             product_id,
         )
         return [_warning_from_row(r) for r in rows]
-
-    async def create_sds(
-        self,
-        *,
-        product_id: int,
-        language: Language,
-        version: str,
-        file_url: str,
-        issued_at: dt.date,
-        revision_notes: str | None,
-    ) -> SdsDocument:
-        row = await self._pool.fetchrow(
-            "INSERT INTO sds_document (product_id, language, version, file_url, issued_at, revision_notes) "
-            "VALUES ($1, $2, $3, $4, $5, $6) "
-            "RETURNING id, product_id, language, version, file_url, issued_at, revision_notes",
-            product_id,
-            language.value,
-            version,
-            file_url,
-            issued_at,
-            revision_notes,
-        )
-        return _sds_from_row(row)
 
     async def create_warning(
         self,

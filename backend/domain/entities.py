@@ -105,17 +105,6 @@ class InventoryMovement:
 
 
 @dataclass(frozen=True, slots=True)
-class SdsDocument:
-    id: int
-    product_id: int
-    language: Language
-    version: str
-    file_url: str
-    issued_at: dt.date
-    revision_notes: str | None = None
-
-
-@dataclass(frozen=True, slots=True)
 class SafetyWarning:
     id: int
     product_id: int

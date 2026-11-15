@@ -33,7 +33,7 @@ To enable one: write a real implementation, then swap the provider in
   `/admin/inventory` and a page in `src/pages/admin/`.
 - **Full admin** — roles management, reports, inventory UI, order management,
   price-list management UI. Current admin covers products (list/create/edit),
-  SDS upload, user list, and per-customer price-list assignment.
+  user list, and per-customer price-list assignment.
 
 ## Testing (not implemented)
 

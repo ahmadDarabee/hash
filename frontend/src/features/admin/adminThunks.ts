@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getErrorMessage } from '../../services/api'
 import * as endpoints from '../../services/endpoints'
-import type { Paginated, Product, SdsDocument, User } from '../../types'
+import type { Paginated, Product, User } from '../../types'
 
 interface ListParams {
   page?: number
@@ -44,17 +44,6 @@ export const adminUpdateProduct = createAsyncThunk<
     return rejectWithValue(getErrorMessage(error))
   }
 })
-
-export const adminUploadSds = createAsyncThunk<SdsDocument, FormData, { rejectValue: string }>(
-  'admin/uploadSds',
-  async (form, { rejectWithValue }) => {
-    try {
-      return await endpoints.adminUploadSds(form)
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error))
-    }
-  },
-)
 
 export const adminListUsers = createAsyncThunk<
   Paginated<User>,

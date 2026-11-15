@@ -1,4 +1,4 @@
 -- =============================================================
--- compliance — SDS/MSDS documents and safety warnings
+-- compliance — safety warnings
 -- triggers.ddl — table triggers (none required for v1)
 -- =============================================================

@@ -15,7 +15,6 @@ export default function AdminLayout() {
   const links: Array<{ to: string; label: string; end?: boolean }> = [
     { to: '/admin', label: t('admin.dashboard'), end: true },
     { to: '/admin/products', label: t('admin.products') },
-    { to: '/admin/sds', label: t('admin.sds') },
     { to: '/admin/users', label: t('admin.users') },
   ]
 
